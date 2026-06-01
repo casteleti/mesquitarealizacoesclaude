@@ -34,15 +34,27 @@ class AdminPaginaController extends Controller
             }
         }
 
-        // Handle image upload if present
-        if (!empty($_FILES['hero_imagem']['name'])) {
-            try {
-                $oldPath = $sanitized['hero_imagem_atual'] ?? null;
-                $sanitized['hero_imagem'] = Upload::image($_FILES['hero_imagem'], 'paginas', $oldPath);
-            } catch (RuntimeException $e) {
-                $this->flash('error', $e->getMessage());
-                $this->redirect($redirect);
+        // Uploads de imagem do hero (desktop + mobile).
+        // Mapeia o campo de arquivo -> campo hidden que carrega o caminho atual.
+        $imageFields = [
+            'hero_imagem'        => 'hero_imagem_atual',
+            'hero_imagem_mobile' => 'hero_imagem_mobile_atual',
+        ];
+        foreach ($imageFields as $field => $currentField) {
+            $current = trim((string) ($sanitized[$currentField] ?? ''));
+            if (!empty($_FILES[$field]['name'])) {
+                try {
+                    // Substitui e remove o arquivo antigo, se houver.
+                    $sanitized[$field] = Upload::image($_FILES[$field], 'paginas', $current ?: null);
+                } catch (RuntimeException $e) {
+                    $this->flash('error', $e->getMessage());
+                    $this->redirect($redirect);
+                }
+            } elseif ($current !== '') {
+                // Sem novo upload: preserva a imagem existente (evita perdê-la ao salvar texto).
+                $sanitized[$field] = $current;
             }
+            unset($sanitized[$currentField]);
         }
 
         PaginaConteudo::save($pagina, $sanitized);

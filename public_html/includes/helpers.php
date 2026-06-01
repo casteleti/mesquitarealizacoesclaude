@@ -8,16 +8,27 @@ function e(mixed $value): string
 }
 
 /**
- * Retorna atributo style inline para o page-hero quando há imagem de fundo.
- * Mantém o gradiente escuro sobreposto para legibilidade do texto.
+ * Retorna atributos para o page-hero quando há imagem de fundo.
+ * Expõe as imagens desktop/mobile como CSS custom properties; o gradiente e a
+ * troca responsiva ficam em style.css (.page-hero[data-hero-image]).
+ * Se só uma das imagens for informada, ela é usada nos dois breakpoints.
  */
-function page_hero_style(string $imagePath): string
+function page_hero_style(string $imagePath, string $imagePathMobile = ''): string
 {
-    if ($imagePath === '') {
+    $desktop = trim($imagePath);
+    $mobile  = trim($imagePathMobile);
+
+    if ($desktop === '' && $mobile === '') {
         return '';
     }
-    $url = upload_url($imagePath);
-    return 'style="background: linear-gradient(112deg, rgba(24,25,28,.82) 0%, rgba(24,25,28,.72) 50%, rgba(31,41,55,.62) 100%), url(\'' . addslashes($url) . '\') center/cover no-repeat;"';
+
+    // Fallback cruzado: garante imagem nos dois breakpoints.
+    $desktopUrl = upload_url($desktop !== '' ? $desktop : $mobile);
+    $mobileUrl  = upload_url($mobile !== '' ? $mobile : $desktop);
+
+    return 'data-hero-image style="'
+        . "--hero-desktop:url('" . addslashes($desktopUrl) . "');"
+        . "--hero-mobile:url('"  . addslashes($mobileUrl)  . "');\"";
 }
 
 function asset(string $path): string

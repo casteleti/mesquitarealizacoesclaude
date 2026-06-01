@@ -3332,6 +3332,23 @@ a.contact-channel-value:hover { color: var(--color-red); }
     transform: none;
 }
 
+/* ── Banner hero com imagem de fundo (desktop + mobile) ──────────────────
+   As URLs vêm de page_hero_style() como --hero-desktop / --hero-mobile.
+   Desktop: imagem horizontal. Mobile (≤768px): imagem vertical. */
+.page-hero[data-hero-image] {
+    background:
+        linear-gradient(112deg, rgba(24, 25, 28, .82) 0%, rgba(24, 25, 28, .72) 50%, rgba(31, 41, 55, .62) 100%),
+        var(--hero-desktop) center / cover no-repeat;
+}
+
+@media (max-width: 768px) {
+    .page-hero[data-hero-image] {
+        background:
+            linear-gradient(112deg, rgba(24, 25, 28, .82) 0%, rgba(24, 25, 28, .72) 50%, rgba(31, 41, 55, .62) 100%),
+            var(--hero-mobile) center / cover no-repeat;
+    }
+}
+
 /* ── Banner hero — fonte padronizada (todas as páginas internas) ─────── */
 .page-hero h1 {
     /* herda as definições canônicas do bloco acima — sem override */
