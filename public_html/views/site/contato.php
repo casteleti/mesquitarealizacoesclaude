@@ -9,7 +9,12 @@ $phone      = trim((string) ($config['telefone']       ?? ''));
 $whatsapp  = trim((string) ($config['whatsapp']       ?? ''));
 $email     = trim((string) ($config['email']          ?? ''));
 $address   = trim((string) ($config['endereco']       ?? ''));
-$mapsEmbed = trim((string) ($config['maps_embed']     ?? ''));
+$mapsEmbed = trim((string) ($config['maps_embed'] ?? ''));
+// Se o usuário colou o iframe completo, extrai apenas o src
+if (str_contains($mapsEmbed, '<iframe')) {
+    preg_match('/src=["\']([^"\']+)["\']/', $mapsEmbed, $m);
+    $mapsEmbed = $m[1] ?? '';
+}
 
 $phoneDigits    = preg_replace('/\D+/', '', $phone);
 $whatsappDigits = preg_replace('/\D+/', '', $whatsapp);
