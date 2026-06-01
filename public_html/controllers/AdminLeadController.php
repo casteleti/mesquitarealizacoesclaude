@@ -35,7 +35,7 @@ class AdminLeadController extends Controller
         if (!$lead) {
             $this->abort(404);
         }
-        Lead::marcarVisualizado((int) $id);
+        Lead::marcarLida((int) $id);
         $lead = Lead::find((int) $id);
         $this->view('admin/lead-detail', compact('lead'));
     }

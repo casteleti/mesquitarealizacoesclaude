@@ -1,7 +1,7 @@
 <?php
 $statusLabels = Lead::STATUS;
-$statusColors = [1 => 'badge-warning', 2 => 'badge-muted', 3 => 'badge-info', 4 => 'badge-success', 5 => 'badge-danger'];
-$tipoLabel = Lead::TIPOS_PROJETO[$lead['tipo_projeto']] ?? $lead['tipo_projeto'];
+$statusCores  = Lead::STATUS_CORES;
+$tipoLabel    = Lead::TIPOS_PROJETO[$lead['tipo_projeto']] ?? $lead['tipo_projeto'];
 ?>
 <div class="panel-head">
     <div class="panel-title">
@@ -42,7 +42,7 @@ $tipoLabel = Lead::TIPOS_PROJETO[$lead['tipo_projeto']] ?? $lead['tipo_projeto']
     <div class="form-section form-section-open">
         <div class="section-label">
             <h2>Status</h2>
-            <p>Status atual: <span class="badge <?= $statusColors[$lead['status']] ?? 'badge-muted' ?>"><?= e($statusLabels[$lead['status']] ?? '-') ?></span></p>
+            <p>Status atual: <span class="badge <?= $statusCores[$lead['status']] ?? 'badge-muted' ?>"><?= e($statusLabels[$lead['status']] ?? '-') ?></span></p>
         </div>
 
         <?php View::partial('partials/flash'); ?>
