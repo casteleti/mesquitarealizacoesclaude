@@ -3910,6 +3910,14 @@ a.contact-channel-value:hover { color: var(--color-red); }
 }
 
 @media (max-width: 759px) {
+    /* backdrop-filter cria um "containing block" que prendia o drawer (fixed)
+       dentro da altura do header — causava o menu mostrando só "Home".
+       Removido no mobile (o fundo do header já é quase opaco). */
+    .site-header {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
     /* Logo ~30% maior no celular; encolhe ao rolar */
     .brand-logo { height: 62px; }
     .header-inner { min-height: 86px; }
