@@ -1,7 +1,8 @@
 <?php
-$title    = trim((string) ($pagina['hero_titulo'] ?? 'Obras'));
-$subtitle = trim((string) ($pagina['hero_subtitulo'] ?? ''));
-$obraList = $obras['data'] ?? [];
+$title      = trim((string) ($pagina['hero_titulo'] ?? 'Obras'));
+$subtitle   = trim((string) ($pagina['hero_subtitulo'] ?? ''));
+$heroImagem = trim((string) ($pagina['hero_imagem'] ?? ''));
+$obraList   = $obras['data'] ?? [];
 $total    = $obras['total'] ?? 0;
 $lastPage = $obras['last_page'] ?? 1;
 $curPage  = $obras['current_page'] ?? 1;
@@ -9,7 +10,7 @@ $setores  = $setores ?? [];
 $setorAtivo = $setorAtivo ?? null;
 ?>
 
-<section class="page-hero">
+<section class="page-hero" <?= page_hero_style($heroImagem) ?>>
     <div class="container page-hero-grid">
         <div class="page-hero-copy">
             <span class="eyebrow">Portfólio técnico</span>

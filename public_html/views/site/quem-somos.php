@@ -6,9 +6,10 @@ $missaoTitulo = trim((string) ($pagina['missao_titulo'] ?? 'Nossa missão'));
 $missaoTexto  = trim((string) ($pagina['missao_texto'] ?? ''));
 $visaoTitulo  = trim((string) ($pagina['visao_titulo'] ?? 'Nossa visão'));
 $visaoTexto   = trim((string) ($pagina['visao_texto'] ?? ''));
+$heroImagem   = trim((string) ($pagina['hero_imagem'] ?? ''));
 ?>
 
-<section class="page-hero">
+<section class="page-hero" <?= page_hero_style($heroImagem) ?>>
     <div class="container page-hero-grid">
         <div class="page-hero-copy">
             <span class="eyebrow">Institucional</span>

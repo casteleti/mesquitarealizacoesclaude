@@ -1,9 +1,10 @@
 <?php
 $heroTitle    = trim((string) ($pagina['hero_titulo'] ?? 'Setores'));
 $heroSubtitle = trim((string) ($pagina['hero_subtitulo'] ?? ''));
+$heroImagem   = trim((string) ($pagina['hero_imagem'] ?? ''));
 ?>
 
-<section class="page-hero">
+<section class="page-hero" <?= page_hero_style($heroImagem) ?>>
     <div class="container page-hero-grid">
         <div class="page-hero-copy">
             <span class="eyebrow">Setores</span>

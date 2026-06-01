@@ -7,6 +7,19 @@ function e(mixed $value): string
     return htmlspecialchars((string) $value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
 
+/**
+ * Retorna atributo style inline para o page-hero quando há imagem de fundo.
+ * Mantém o gradiente escuro sobreposto para legibilidade do texto.
+ */
+function page_hero_style(string $imagePath): string
+{
+    if ($imagePath === '') {
+        return '';
+    }
+    $url = upload_url($imagePath);
+    return 'style="background: linear-gradient(112deg, rgba(24,25,28,.82) 0%, rgba(24,25,28,.72) 50%, rgba(31,41,55,.62) 100%), url(\'' . addslashes($url) . '\') center/cover no-repeat;"';
+}
+
 function asset(string $path): string
 {
     return '/assets/' . ltrim($path, '/');

@@ -1,7 +1,8 @@
 <?php
-$title     = trim((string) ($pagina['hero_titulo']    ?? 'Fale Conosco'));
-$subtitle  = trim((string) ($pagina['hero_subtitulo'] ?? ''));
-$phone     = trim((string) ($config['telefone']       ?? ''));
+$title      = trim((string) ($pagina['hero_titulo']    ?? 'Fale Conosco'));
+$subtitle   = trim((string) ($pagina['hero_subtitulo'] ?? ''));
+$heroImagem = trim((string) ($pagina['hero_imagem']    ?? ''));
+$phone      = trim((string) ($config['telefone']       ?? ''));
 $whatsapp  = trim((string) ($config['whatsapp']       ?? ''));
 $email     = trim((string) ($config['email']          ?? ''));
 $address   = trim((string) ($config['endereco']       ?? ''));
@@ -13,7 +14,7 @@ $whatsappHref   = $whatsappDigits !== '' ? 'https://wa.me/' . $whatsappDigits : 
 $mapsSearch     = $address !== '' ? 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($address) : '';
 ?>
 
-<section class="page-hero">
+<section class="page-hero" <?= page_hero_style($heroImagem) ?>>
     <div class="container page-hero-grid">
         <div class="page-hero-copy">
             <span class="eyebrow">Contato</span>
