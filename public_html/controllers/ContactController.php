@@ -64,16 +64,71 @@ class ContactController extends Controller
         // Notification email
         $emailDestino = Configuracao::get('email_leads') ?: Configuracao::get('email');
         if ($emailDestino) {
-            $body = "
-                <h2 style='font-family:sans-serif;color:#1a1a1a'>Novo contato recebido</h2>
-                <table style='font-family:sans-serif;font-size:15px;line-height:1.6;color:#333'>
-                    <tr><td style='padding:4px 12px 4px 0;font-weight:600'>Nome</td><td>{$data['nome']}</td></tr>
-                    <tr><td style='padding:4px 12px 4px 0;font-weight:600'>E-mail</td><td>{$data['email']}</td></tr>
-                    <tr><td style='padding:4px 12px 4px 0;font-weight:600'>Telefone</td><td>{$data['telefone']}</td></tr>
-                </table>
-                <p style='font-family:sans-serif;font-size:15px;margin-top:18px'><strong>Mensagem:</strong><br>{$data['mensagem']}</p>
-            ";
-            Mailer::send($emailDestino, 'Novo contato — Mesquita Realizações', $body);
+            $dataHora = date('d \d\e F \d\e Y \à\s H\hi', strtotime($data['created_at']));
+            $assunto  = 'Novo contato de ' . $data['nome'] . ' — ' . date('d/m/Y \à\s H\hi', strtotime($data['created_at']));
+            $mensagemHtml = nl2br(htmlspecialchars($data['mensagem'], ENT_QUOTES, 'UTF-8'));
+            $nome     = htmlspecialchars($data['nome'],     ENT_QUOTES, 'UTF-8');
+            $email    = htmlspecialchars($data['email'],    ENT_QUOTES, 'UTF-8');
+            $telefone = htmlspecialchars($data['telefone'], ENT_QUOTES, 'UTF-8');
+
+            $body = <<<HTML
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#f2f2f2;font-family:Arial,Helvetica,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f2f2f2;padding:40px 0;">
+  <tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+      <tr><td style="background:#1a1a1a;padding:32px 40px;border-radius:8px 8px 0 0;">
+        <p style="margin:0 0 4px 0;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c0392b;font-weight:700;">Mesquita Realizações</p>
+        <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:700;line-height:1.3;">Nova mensagem recebida pelo site</h1>
+        <p style="margin:8px 0 0 0;font-size:13px;color:#999999;">{$dataHora}</p>
+      </td></tr>
+
+      <tr><td style="background:#ffffff;padding:40px;">
+
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+          <tr><td style="border-left:3px solid #c0392b;padding-left:12px;">
+            <p style="margin:0 0 2px 0;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#999999;font-weight:700;">Nome</p>
+            <p style="margin:0;font-size:16px;color:#1a1a1a;font-weight:600;">{$nome}</p>
+          </td></tr>
+        </table>
+
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+          <tr><td style="border-left:3px solid #c0392b;padding-left:12px;">
+            <p style="margin:0 0 2px 0;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#999999;font-weight:700;">E-mail</p>
+            <p style="margin:0;font-size:16px;color:#1a1a1a;">{$email}</p>
+          </td></tr>
+        </table>
+
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+          <tr><td style="border-left:3px solid #c0392b;padding-left:12px;">
+            <p style="margin:0 0 2px 0;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#999999;font-weight:700;">Telefone</p>
+            <p style="margin:0;font-size:16px;color:#1a1a1a;">{$telefone}</p>
+          </td></tr>
+        </table>
+
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr><td style="background:#f8f8f8;border:1px solid #ebebeb;border-radius:6px;padding:20px;">
+            <p style="margin:0 0 8px 0;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#999999;font-weight:700;">Mensagem</p>
+            <p style="margin:0;font-size:15px;color:#333333;line-height:1.7;">{$mensagemHtml}</p>
+          </td></tr>
+        </table>
+
+      </td></tr>
+
+      <tr><td style="background:#f8f8f8;padding:24px 40px;border-top:1px solid #ebebeb;border-radius:0 0 8px 8px;">
+        <p style="margin:0;font-size:12px;color:#999999;line-height:1.6;">Este e-mail foi enviado automaticamente a partir do formulário de contato de <a href="https://mesquitarealizacoes.com.br" style="color:#c0392b;text-decoration:none;">mesquitarealizacoes.com.br</a>. Não responda este e-mail diretamente — entre em contato com o cliente pelo e-mail ou telefone informados acima.</p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+</body></html>
+HTML;
+
+            Mailer::send($emailDestino, $assunto, $body);
         }
 
         echo json_encode(['success' => true, 'message' => 'Mensagem enviada! Entraremos em contato em breve.']);
