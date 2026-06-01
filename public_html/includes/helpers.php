@@ -33,7 +33,19 @@ function page_hero_style(string $imagePath, string $imagePathMobile = ''): strin
 
 function asset(string $path): string
 {
-    return '/assets/' . ltrim($path, '/');
+    $path = ltrim($path, '/');
+    $url  = '/assets/' . $path;
+
+    // Cache-busting automático para CSS/JS: ?v=<mtime> muda a URL quando o
+    // arquivo muda, furando o cache de 30 dias do navegador a cada deploy.
+    if (preg_match('/\.(css|js)$/', $path)) {
+        $file = ROOT . '/assets/' . $path;
+        if (is_file($file)) {
+            $url .= '?v=' . filemtime($file);
+        }
+    }
+
+    return $url;
 }
 
 function url(string $path = ''): string
