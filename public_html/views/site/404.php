@@ -2,7 +2,7 @@
     <div class="container error-404-inner">
 
         <div class="error-404-icon" aria-hidden="true">
-            <svg viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" xmlns="http://www.w3.org/2000/svg">
+            <svg width="200" height="200" viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" xmlns="http://www.w3.org/2000/svg">
                 <path d="M29.31,215.54L8.85,250.97c-1.8,3.11-1.8,6.95,0,10.06l119.22,206.49c1.79,3.12,5.12,5.04,8.71,5.04h49.29"/>
                 <path d="M46.81,185.23l81.26-140.75c1.79-3.12,5.12-5.04,8.71-5.04h238.44c3.59,0,6.92,1.92,8.71,5.04l21.47,37.18"/>
                 <path d="M422.9,111.97l80.25,139c1.8,3.11,1.8,6.95,0,10.06L383.93,467.52c-1.79,3.12-5.12,5.04-8.71,5.04H221.07"/>

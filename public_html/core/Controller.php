@@ -53,7 +53,12 @@ abstract class Controller
         $config   = Configuracao::getAll();
         $settings = $config;
         $seo      = Seo::meta(['title' => 'Página não encontrada'], $config);
-        $this->view('site/404', compact('config', 'settings', 'seo'));
+
+        ob_start();
+        require ROOT . '/views/site/404.php';
+        $content = ob_get_clean();
+
+        require ROOT . '/views/site/layout.php';
         exit;
     }
 

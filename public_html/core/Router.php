@@ -76,7 +76,15 @@ class Router
     private function notFound(): void
     {
         http_response_code(404);
+        $config   = Configuracao::getAll();
+        $settings = $config;
+        $seo      = Seo::meta(['title' => 'Página não encontrada'], $config);
+
+        ob_start();
         require ROOT . '/views/site/404.php';
+        $content = ob_get_clean();
+
+        require ROOT . '/views/site/layout.php';
         exit;
     }
 }
