@@ -1,7 +1,9 @@
 <section class="error-404">
     <div class="container error-404-inner">
 
-        <div class="error-404-code">404</div>
+        <div class="error-404-icon">
+            <img src="<?= e(asset('icons/erro-404.svg')) ?>" alt="404" width="260" height="260">
+        </div>
 
         <div class="error-404-content">
             <span class="eyebrow">Página não encontrada</span>

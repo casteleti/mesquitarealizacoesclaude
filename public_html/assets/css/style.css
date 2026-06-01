@@ -4856,15 +4856,15 @@ a.contact-channel-value:hover { color: var(--color-red); }
     }
 }
 
-.error-404-code {
-    font-family: var(--font-heading);
-    font-size: clamp(7rem, 18vw, 13rem);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -.04em;
-    color: transparent;
-    -webkit-text-stroke: 3px var(--color-red);
-    user-select: none;
+.error-404-icon {
+    flex-shrink: 0;
+}
+
+.error-404-icon img {
+    display: block;
+    width: clamp(180px, 22vw, 280px);
+    height: auto;
+    filter: brightness(0) saturate(100%) invert(18%) sepia(96%) saturate(1000%) hue-rotate(343deg) brightness(97%);
 }
 
 .error-404-content .eyebrow { margin-bottom: 12px; }
