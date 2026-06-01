@@ -4,7 +4,7 @@ $descCurta  = trim((string) ($setor['descricao_curta'] ?? ''));
 $titulo     = trim((string) ($setor['titulo_pagina'] ?: $setor['title'] ?? ''));
 ?>
 
-<section class="page-hero">
+<section class="page-hero" <?= page_hero_style($setor['imagem'] ?? '') ?>>
     <div class="container page-hero-grid">
         <div class="page-hero-copy">
             <nav class="breadcrumb" aria-label="Você está em">
@@ -22,15 +22,6 @@ $titulo     = trim((string) ($setor['titulo_pagina'] ?: $setor['title'] ?? ''));
                 <p>Uma área de atuação estruturada para demandas que exigem leitura técnica, organização e execução responsável.</p>
             <?php endif; ?>
         </div>
-
-        <?php if (!empty($setor['imagem'])): ?>
-        <div class="page-hero-media">
-            <img src="<?= e(upload_url($setor['imagem'])) ?>"
-                 alt="<?= e($setor['title']) ?>"
-                 width="640" height="500"
-                 fetchpriority="high" decoding="async">
-        </div>
-        <?php endif; ?>
     </div>
 </section>
 
