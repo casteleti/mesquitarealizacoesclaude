@@ -32,11 +32,17 @@ class AdminProcessController extends Controller
             $this->redirect('/admin/processo/create');
         }
 
+        $iconeArquivo = '';
+        if (!empty($_FILES['icone_arquivo']['tmp_name'])) {
+            $iconeArquivo = Upload::image($_FILES['icone_arquivo'], 'icones');
+        }
+
         EtapaProcesso::insert([
             'numero'          => strip_tags(trim($_POST['numero'])),
             'titulo'          => strip_tags(trim($_POST['titulo'])),
             'descricao'       => strip_tags(trim($_POST['descricao'] ?? '')),
             'icone'           => strip_tags(trim($_POST['icone'] ?? '')),
+            'icone_arquivo'   => $iconeArquivo,
             'bloco_titulo'    => strip_tags(trim($_POST['bloco_titulo'] ?? '')),
             'topico_1'        => strip_tags(trim($_POST['topico_1'] ?? '')),
             'topico_2'        => strip_tags(trim($_POST['topico_2'] ?? '')),
@@ -76,11 +82,18 @@ class AdminProcessController extends Controller
             $this->redirect('/admin/processo/' . $id . '/edit');
         }
 
+        $current      = EtapaProcesso::find((int) $id) ?? [];
+        $iconeArquivo = $current['icone_arquivo'] ?? '';
+        if (!empty($_FILES['icone_arquivo']['tmp_name'])) {
+            $iconeArquivo = Upload::image($_FILES['icone_arquivo'], 'icones', $current['icone_arquivo'] ?? null);
+        }
+
         EtapaProcesso::update((int) $id, [
             'numero'          => strip_tags(trim($_POST['numero'])),
             'titulo'          => strip_tags(trim($_POST['titulo'])),
             'descricao'       => strip_tags(trim($_POST['descricao'] ?? '')),
             'icone'           => strip_tags(trim($_POST['icone'] ?? '')),
+            'icone_arquivo'   => $iconeArquivo,
             'bloco_titulo'    => strip_tags(trim($_POST['bloco_titulo'] ?? '')),
             'topico_1'        => strip_tags(trim($_POST['topico_1'] ?? '')),
             'topico_2'        => strip_tags(trim($_POST['topico_2'] ?? '')),

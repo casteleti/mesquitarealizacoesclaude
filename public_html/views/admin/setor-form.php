@@ -11,9 +11,6 @@
             <input name="title" value="<?= e(old('title', $item['title'] ?? '')) ?>" required>
             <small class="field-help">Ex: Bioenergia, Energia, Indústria, Infraestrutura Logística.</small>
         </label>
-        <label>Ícone (classe CSS)
-            <input name="icone" value="<?= e(old('icone', $item['icone'] ?? '')) ?>" placeholder="Ex: icon-energia">
-        </label>
         <label>Título curto (Home)
             <input name="titulo_home" value="<?= e(old('titulo_home', $item['titulo_home'] ?? '')) ?>" maxlength="30">
             <small class="field-help">Versão compacta exibida nos cards da home. Máx. 30 caracteres.</small>
@@ -28,6 +25,31 @@
         <label class="full">Descrição completa
             <textarea name="descricao" rows="8"><?= e(old('descricao', $item['descricao'] ?? '')) ?></textarea>
             <small class="field-help">Texto da página do setor. Explique atuação, tipos de obra e diferenciais.</small>
+        </label>
+    </div>
+
+    <div class="form-section form-section-open">
+        <div class="section-label">
+            <h2>Ícone do setor</h2>
+            <p>Faça upload de um ícone SVG ou PNG, ou use o nome de um ícone do sistema.</p>
+        </div>
+
+        <label>Upload de ícone (SVG ou PNG)
+            <input type="file" name="icone_arquivo" accept="image/svg+xml,image/png,image/webp" data-preview-input>
+            <small class="field-help">Recomendado: SVG 32×32px. Prioridade sobre o ícone do sistema.</small>
+        </label>
+        <?php if (!empty($item['icone_arquivo'])): ?>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+                <img data-preview src="<?= e(upload_url($item['icone_arquivo'])) ?>" width="32" height="32" style="filter:invert(18%) sepia(96%) saturate(1000%) hue-rotate(343deg) brightness(97%)" alt="Ícone atual">
+                <span class="field-help">Ícone atual</span>
+            </div>
+        <?php else: ?>
+            <img data-preview hidden width="32" height="32" alt="Preview">
+        <?php endif; ?>
+
+        <label>Ou: ícone do sistema (nome Lucide)
+            <input name="icone" value="<?= e(old('icone', $item['icone'] ?? '')) ?>" placeholder="Ex: building-2, factory, zap">
+            <small class="field-help">Usado apenas se não houver upload. <a href="https://lucide.dev/icons/" target="_blank" rel="noopener">Ver ícones disponíveis</a></small>
         </label>
     </div>
 

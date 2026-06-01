@@ -61,10 +61,16 @@ class AdminSectorController extends Controller
         }
         $imagem = $imagem ?? ($current['imagem'] ?? '');
 
+        $iconeArquivo = $current['icone_arquivo'] ?? '';
+        if (!empty($_FILES['icone_arquivo']['tmp_name'])) {
+            $iconeArquivo = Upload::image($_FILES['icone_arquivo'], 'icones', $current['icone_arquivo'] ?? null);
+        }
+
         $data = [
             'title'           => $title,
             'slug'            => $slugVal,
             'icone'           => strip_tags(trim($_POST['icone'] ?? '')),
+            'icone_arquivo'   => $iconeArquivo,
             'titulo_home'     => strip_tags(trim($_POST['titulo_home'] ?? '')),
             'descricao_curta' => strip_tags(trim($_POST['descricao_curta'] ?? '')),
             'imagem'          => $imagem,
