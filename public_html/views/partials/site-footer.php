@@ -83,19 +83,19 @@ if ($footerText === '') {
             <span>Contato</span>
             <?php if ($address !== ''): ?>
                 <p class="footer-contact-item">
-                    <img class="footer-contact-icon" src="<?= e(asset('icons/localizacao.svg')) ?>" alt="" aria-hidden="true" width="16" height="16">
+                    <img class="footer-contact-icon" src="<?= e(asset('icons/map-pin.svg')) ?>" alt="" aria-hidden="true" width="16" height="16">
                     <span><?= nl2br(e($address)) ?></span>
                 </p>
             <?php endif; ?>
             <?php if ($phoneDigits !== ''): ?>
                 <a class="footer-contact-item" href="tel:<?= e($phoneDigits) ?>">
-                    <img class="footer-contact-icon" src="<?= e(asset('icons/phone-call.svg')) ?>" alt="" aria-hidden="true" width="16" height="16">
+                    <img class="footer-contact-icon" src="<?= e(asset('icons/phone.svg')) ?>" alt="" aria-hidden="true" width="16" height="16">
                     <span><?= e($phone) ?></span>
                 </a>
             <?php endif; ?>
             <?php if ($email !== ''): ?>
                 <a class="footer-contact-item" href="mailto:<?= e($email) ?>">
-                    <img class="footer-contact-icon" src="<?= e(asset('icons/o-email.svg')) ?>" alt="" aria-hidden="true" width="16" height="16">
+                    <img class="footer-contact-icon" src="<?= e(asset('icons/envelope.svg')) ?>" alt="" aria-hidden="true" width="16" height="16">
                     <span><?= e($email) ?></span>
                 </a>
             <?php endif; ?>
