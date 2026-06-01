@@ -19,71 +19,72 @@ class AdminValorController extends Controller
 
     public function store(): void
     {
-        $this->requireAdmin();
-        $this->csrfVerify();
-
-        $v = new Validator($_POST);
-        $v->required('titulo', 'Título')->maxLength('titulo', 100, 'Título');
-
-        if (!$v->passes()) {
-            $_SESSION['old'] = $_POST;
-            $_SESSION['errors'] = $v->errors();
-            $this->redirect('/admin/valores/create');
-        }
-
-        Valor::insert([
-            'titulo'   => strip_tags(trim($_POST['titulo'])),
-            'resumo'   => strip_tags(trim($_POST['resumo'] ?? '')),
-            'texto'    => strip_tags(trim($_POST['texto'] ?? '')),
-            'icone'    => strip_tags(trim($_POST['icone'] ?? '')),
-            'topico_1' => strip_tags(trim($_POST['topico_1'] ?? '')),
-            'topico_2' => strip_tags(trim($_POST['topico_2'] ?? '')),
-            'topico_3' => strip_tags(trim($_POST['topico_3'] ?? '')),
-            'ordem'    => (int) ($_POST['ordem'] ?? 0),
-            'ativo'    => isset($_POST['ativo']) ? 1 : 0,
-        ]);
-
-        $this->flash('success', 'Valor criado.');
-        $this->redirect('/admin/valores');
+        $this->save();
     }
 
     public function edit(string $id): void
     {
         $this->requireAdmin();
         $item = Valor::find((int) $id);
-        if (!$item) {
-            $this->abort(404);
-        }
+        if (!$item) { $this->abort(404); }
         $this->view('admin/valor-form', compact('item'));
     }
 
     public function update(string $id): void
     {
+        $this->save((int) $id);
+    }
+
+    private function save(?int $id = null): void
+    {
         $this->requireAdmin();
         $this->csrfVerify();
 
         $v = new Validator($_POST);
-        $v->required('titulo', 'Título')->maxLength('titulo', 100, 'Título');
+        $v->required('titulo', 'Título')->maxLength('titulo', 35, 'Título');
 
         if (!$v->passes()) {
-            $_SESSION['old'] = $_POST;
+            $_SESSION['old']    = $_POST;
             $_SESSION['errors'] = $v->errors();
-            $this->redirect('/admin/valores/' . $id . '/edit');
+            $this->redirect($id ? '/admin/valores/' . $id . '/edit' : '/admin/valores/create');
         }
 
-        Valor::update((int) $id, [
-            'titulo'   => strip_tags(trim($_POST['titulo'])),
-            'resumo'   => strip_tags(trim($_POST['resumo'] ?? '')),
-            'texto'    => strip_tags(trim($_POST['texto'] ?? '')),
-            'icone'    => strip_tags(trim($_POST['icone'] ?? '')),
-            'topico_1' => strip_tags(trim($_POST['topico_1'] ?? '')),
-            'topico_2' => strip_tags(trim($_POST['topico_2'] ?? '')),
-            'topico_3' => strip_tags(trim($_POST['topico_3'] ?? '')),
-            'ordem'    => (int) ($_POST['ordem'] ?? 0),
-            'ativo'    => isset($_POST['ativo']) ? 1 : 0,
-        ]);
+        $current       = $id ? (Valor::find($id) ?? []) : [];
+        $iconeArquivo  = $current['icone_arquivo'] ?? '';
 
-        $this->flash('success', 'Valor atualizado.');
+        // Upload de ícone personalizado
+        if (!empty($_FILES['icone_arquivo']['tmp_name'])) {
+            $novo = Upload::image($_FILES['icone_arquivo'], 'icones', $iconeArquivo ?: null);
+            if ($novo) {
+                $iconeArquivo = $novo;
+            }
+        }
+
+        $data = [
+            'titulo'         => strip_tags(trim($_POST['titulo'])),
+            'resumo'         => strip_tags(trim($_POST['resumo'] ?? '')),
+            'texto'          => strip_tags(trim($_POST['texto'] ?? '')),
+            'icone'          => strip_tags(trim($_POST['icone'] ?? '')),
+            'icone_arquivo'  => $iconeArquivo,
+            'topico_1'       => strip_tags(trim($_POST['topico_1'] ?? '')),
+            'topico_2'       => strip_tags(trim($_POST['topico_2'] ?? '')),
+            'topico_3'       => strip_tags(trim($_POST['topico_3'] ?? '')),
+            'ordem'          => (int) ($_POST['ordem'] ?? 0),
+            'ativo'          => isset($_POST['ativo']) ? 1 : 0,
+        ];
+
+        try {
+            if ($id) {
+                Valor::update($id, $data);
+            } else {
+                Valor::insert($data);
+            }
+            $this->flash('success', 'Valor salvo.');
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+            $this->flash('error', 'Não foi possível salvar.');
+        }
+
         $this->redirect('/admin/valores');
     }
 
@@ -111,8 +112,7 @@ class AdminValorController extends Controller
     {
         $this->requireAdmin();
         $this->csrfVerify();
-        $ids = $_POST['ids'] ?? [];
-        foreach ($ids as $pos => $id) {
+        foreach ($_POST['ids'] ?? [] as $pos => $id) {
             Valor::update((int) $id, ['ordem' => (int) $pos]);
         }
         $this->json(['ok' => true]);

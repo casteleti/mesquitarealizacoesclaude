@@ -184,6 +184,23 @@ function lucide_icon(string $name, string $class = 'icon', int $size = 24): stri
     return '<svg class="' . e($class) . '" xmlns="http://www.w3.org/2000/svg" width="' . $s . '" height="' . $s . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' . $d . '"/></svg>';
 }
 
+/**
+ * Renderiza ícone: prioriza arquivo enviado via upload,
+ * cai em Lucide se só houver nome, ou retorna vazio.
+ */
+function render_icon(string $iconeArquivo, string $iconeName, string $class = 'icon', int $size = 28): string
+{
+    if ($iconeArquivo !== '') {
+        $url = upload_url($iconeArquivo);
+        $s   = (int) $size;
+        return '<img src="' . e($url) . '" class="' . e($class) . ' icon-upload" width="' . $s . '" height="' . $s . '" alt="" aria-hidden="true" loading="lazy">';
+    }
+    if ($iconeName !== '') {
+        return lucide_icon($iconeName, $class, $size);
+    }
+    return '';
+}
+
 function site_config(string $key, mixed $default = ''): mixed
 {
     static $cache = null;

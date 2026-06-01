@@ -1,12 +1,19 @@
 <?php
-$heroTitle    = trim((string) ($pagina['hero_titulo'] ?? 'Quem Somos'));
-$heroSubtitle = trim((string) ($pagina['hero_subtitulo'] ?? ''));
-$sobreTexto   = trim((string) ($pagina['sobre_texto'] ?? ''));
-$missaoTitulo = trim((string) ($pagina['missao_titulo'] ?? 'Nossa missão'));
-$missaoTexto  = trim((string) ($pagina['missao_texto'] ?? ''));
-$visaoTitulo  = trim((string) ($pagina['visao_titulo'] ?? 'Nossa visão'));
-$visaoTexto   = trim((string) ($pagina['visao_texto'] ?? ''));
-$heroImagem   = trim((string) ($pagina['hero_imagem'] ?? ''));
+$heroTitle          = trim((string) ($pagina['hero_titulo']           ?? 'Quem Somos'));
+$heroSubtitle       = trim((string) ($pagina['hero_subtitulo']        ?? ''));
+$heroImagem         = trim((string) ($pagina['hero_imagem']           ?? ''));
+$sobreTitulo        = trim((string) ($pagina['sobre_titulo']          ?? ''));
+$sobreTexto         = trim((string) ($pagina['sobre_texto']           ?? ''));
+$missaoTitulo       = trim((string) ($pagina['missao_titulo']         ?? 'Missão'));
+$missaoTexto        = trim((string) ($pagina['missao_texto']          ?? ''));
+$visaoTitulo        = trim((string) ($pagina['visao_titulo']          ?? 'Visão'));
+$visaoTexto         = trim((string) ($pagina['visao_texto']           ?? ''));
+$valoresTitulo      = trim((string) ($pagina['valores_titulo']        ?? ''));
+$valoresSubtitulo   = trim((string) ($pagina['valores_subtitulo']     ?? ''));
+$diferenciaisTitulo = trim((string) ($pagina['diferenciais_titulo']   ?? ''));
+$diferenciaisSubtit = trim((string) ($pagina['diferenciais_subtitulo']?? ''));
+$ctaTitulo          = trim((string) ($pagina['cta_titulo']            ?? ''));
+$ctaTexto           = trim((string) ($pagina['cta_texto']             ?? ''));
 ?>
 
 <section class="page-hero" <?= page_hero_style($heroImagem) ?>>
@@ -27,7 +34,7 @@ $heroImagem   = trim((string) ($pagina['hero_imagem'] ?? ''));
     <div class="container about-grid">
         <div class="about-text">
             <span class="eyebrow">A empresa</span>
-            <h2>Execução responsável, do diagnóstico à entrega.</h2>
+            <h2><?= e($sobreTitulo ?: 'Execução responsável, do diagnóstico à entrega.') ?></h2>
             <div class="prose">
                 <?php if ($sobreTexto): ?>
                     <?= nl2br(e($sobreTexto)) ?>
@@ -39,29 +46,22 @@ $heroImagem   = trim((string) ($pagina['hero_imagem'] ?? ''));
         </div>
 
         <div class="about-pillars">
-            <?php if ($missaoTexto): ?>
-                <div class="about-pillar">
-                    <strong><?= e($missaoTitulo) ?></strong>
+            <div class="about-pillar">
+                <strong><?= e($missaoTitulo) ?></strong>
+                <?php if ($missaoTexto): ?>
                     <p><?= e($missaoTexto) ?></p>
-                </div>
-            <?php else: ?>
-                <div class="about-pillar">
-                    <strong>Missão</strong>
+                <?php else: ?>
                     <p>Entregar obras industriais com organização, segurança e resultado previsível, servindo clientes que precisam de responsabilidade técnica e presença na execução.</p>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($visaoTexto): ?>
-                <div class="about-pillar">
-                    <strong><?= e($visaoTitulo) ?></strong>
+                <?php endif; ?>
+            </div>
+            <div class="about-pillar">
+                <strong><?= e($visaoTitulo) ?></strong>
+                <?php if ($visaoTexto): ?>
                     <p><?= e($visaoTexto) ?></p>
-                </div>
-            <?php else: ?>
-                <div class="about-pillar">
-                    <strong>Visão</strong>
+                <?php else: ?>
                     <p>Ser referência em execução técnica para o setor industrial, reconhecida pela capacidade de transformar escopo complexo em obra entregue com previsibilidade.</p>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </section>
@@ -71,29 +71,25 @@ $heroImagem   = trim((string) ($pagina['hero_imagem'] ?? ''));
     <div class="container">
         <div class="section-heading">
             <span class="eyebrow">Valores</span>
-            <h2>O que orienta cada decisão.</h2>
-            <p>Princípios que guiam a postura técnica, a comunicação e a entrega da equipe em todo projeto.</p>
+            <h2><?= e($valoresTitulo ?: 'O que orienta cada decisão.') ?></h2>
+            <?php if ($valoresSubtitulo): ?>
+                <p><?= e($valoresSubtitulo) ?></p>
+            <?php else: ?>
+                <p>Princípios que guiam a postura técnica, a comunicação e a entrega da equipe em todo projeto.</p>
+            <?php endif; ?>
         </div>
         <div class="values-grid">
             <?php foreach ($valores as $valor): ?>
                 <article class="value-card">
-                    <?php if (!empty($valor['icone'])): ?>
-                        <span class="value-icon" aria-hidden="true"><?= lucide_icon($valor['icone'], 'icon', 28) ?></span>
+                    <?php $iconeHtml = render_icon($valor['icone_arquivo'] ?? '', $valor['icone'] ?? '', 'icon', 28); ?>
+                    <?php if ($iconeHtml): ?>
+                        <span class="value-icon" aria-hidden="true"><?= $iconeHtml ?></span>
                     <?php endif; ?>
                     <h3><?= e($valor['titulo']) ?></h3>
                     <?php if (!empty($valor['resumo'])): ?>
                         <p><?= e($valor['resumo']) ?></p>
                     <?php elseif (!empty($valor['texto'])): ?>
-                        <p><?= e(truncate($valor['texto'], 120)) ?></p>
-                    <?php endif; ?>
-                    <?php if (!empty($valor['topico_1']) || !empty($valor['topico_2']) || !empty($valor['topico_3'])): ?>
-                        <ul class="value-topics">
-                            <?php foreach (['topico_1','topico_2','topico_3'] as $t): ?>
-                                <?php if (!empty($valor[$t])): ?>
-                                    <li><?= e($valor[$t]) ?></li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </ul>
+                        <p><?= e(truncate($valor['texto'], 100)) ?></p>
                     <?php endif; ?>
                 </article>
             <?php endforeach; ?>
@@ -107,14 +103,19 @@ $heroImagem   = trim((string) ($pagina['hero_imagem'] ?? ''));
     <div class="container">
         <div class="section-heading">
             <span class="eyebrow">Diferenciais</span>
-            <h2>Por que a Mesquita Realizações.</h2>
-            <p>Aspectos práticos da atuação que fazem diferença em obras que exigem método e controle.</p>
+            <h2><?= e($diferenciaisTitulo ?: 'Por que a Mesquita Realizações.') ?></h2>
+            <?php if ($diferenciaisSubtit): ?>
+                <p><?= e($diferenciaisSubtit) ?></p>
+            <?php else: ?>
+                <p>Aspectos práticos da atuação que fazem diferença em obras que exigem método e controle.</p>
+            <?php endif; ?>
         </div>
         <div class="diferenciais-grid">
             <?php foreach ($diferenciais as $d): ?>
                 <article class="diferencial-card">
-                    <?php if (!empty($d['icone'])): ?>
-                        <span class="diferencial-icon" aria-hidden="true"><?= lucide_icon($d['icone'], 'icon', 28) ?></span>
+                    <?php $iconeHtml = render_icon($d['icone_arquivo'] ?? '', $d['icone'] ?? '', 'icon', 28); ?>
+                    <?php if ($iconeHtml): ?>
+                        <span class="diferencial-icon" aria-hidden="true"><?= $iconeHtml ?></span>
                     <?php endif; ?>
                     <h3><?= e($d['titulo']) ?></h3>
                     <?php if (!empty($d['texto'])): ?>
@@ -130,8 +131,8 @@ $heroImagem   = trim((string) ($pagina['hero_imagem'] ?? ''));
 <section class="home-final-cta">
     <div class="container home-final-cta-inner">
         <span class="eyebrow">Contato</span>
-        <h2>Quer conversar sobre uma demanda técnica?</h2>
-        <p>Compartilhe o contexto do projeto para receber um retorno inicial claro sobre escopo, caminhos e próximos passos.</p>
+        <h2><?= e($ctaTitulo ?: 'Quer conversar sobre uma demanda técnica?') ?></h2>
+        <p><?= e($ctaTexto ?: 'Compartilhe o contexto do projeto para receber um retorno inicial claro sobre escopo, caminhos e próximos passos.') ?></p>
         <div class="hero-actions">
             <a class="button" href="<?= e(url('contato')) ?>">Fale com a equipe</a>
             <a class="button button-outline" href="<?= e(url('obras')) ?>">Ver obras realizadas</a>

@@ -4450,12 +4450,10 @@ a.contact-channel-value:hover { color: var(--color-red); }
 
 .values-grid {
     display: grid;
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 20px;
     margin-top: 40px;
 }
-
-@media (min-width: 600px) { .values-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 960px) { .values-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 .value-card {
     padding: 28px 24px;
@@ -4470,6 +4468,14 @@ a.contact-channel-value:hover { color: var(--color-red); }
     margin-bottom: 14px;
     font-size: 1.4rem;
     color: var(--color-red);
+}
+
+.value-icon .icon-upload,
+.diferencial-icon .icon-upload {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(18%) sepia(96%) saturate(1000%) hue-rotate(343deg) brightness(97%);
 }
 
 .value-card h3 {
@@ -4495,12 +4501,10 @@ a.contact-channel-value:hover { color: var(--color-red); }
 
 .diferenciais-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
     gap: 20px;
     margin-top: 40px;
 }
-
-@media (min-width: 600px) { .diferenciais-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 960px) { .diferenciais-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 .diferencial-card {
     display: flex;
