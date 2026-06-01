@@ -1,5 +1,5 @@
 <?php
-$heroTitle          = trim((string) ($pagina['hero_titulo']           ?? 'Quem Somos'));
+$heroTitle          = trim((string) ($pagina['hero_titulo'] ?? '')) ?: 'Quem Somos';
 $heroSubtitle       = trim((string) ($pagina['hero_subtitulo']        ?? ''));
 $heroImagem         = trim((string) ($pagina['hero_imagem']           ?? ''));
 $heroImagemMobile   = trim((string) ($pagina['hero_imagem_mobile']    ?? ''));
