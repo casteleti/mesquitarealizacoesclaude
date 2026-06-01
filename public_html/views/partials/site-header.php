@@ -25,6 +25,12 @@ $navSocial = [
             </span>
         </button>
         <nav id="site-menu" class="site-nav" data-menu>
+            <button class="nav-close" type="button" data-menu-close aria-label="Fechar menu">
+                <span class="nav-close-box" aria-hidden="true">
+                    <span class="nav-close-bar"></span>
+                    <span class="nav-close-bar"></span>
+                </span>
+            </button>
             <a class="<?= $currentPath === '' ? 'is-active' : '' ?>" href="<?= e(url('/')) ?>" <?= $currentPath === '' ? 'aria-current="page"' : '' ?>>Home</a>
             <a class="<?= $currentPath === 'quem-somos' ? 'is-active' : '' ?>" href="<?= e(url('quem-somos')) ?>" <?= $currentPath === 'quem-somos' ? 'aria-current="page"' : '' ?>>Quem Somos</a>
             <a class="<?= str_starts_with($currentPath, 'setores') ? 'is-active' : '' ?>" href="<?= e(url('setores')) ?>" <?= str_starts_with($currentPath, 'setores') ? 'aria-current="page"' : '' ?>>Setores</a>

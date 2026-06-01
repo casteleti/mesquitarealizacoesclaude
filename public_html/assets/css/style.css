@@ -172,8 +172,9 @@ strong {
     gap: 22px;
 }
 
-/* Bloco de contato/redes — só visível no menu mobile (ver media ≤759px) */
+/* Bloco de contato/redes + botão fechar — só no menu mobile (ver media ≤759px) */
 .nav-contact { display: none; }
+.nav-close { display: none; }
 
 .site-nav a {
     position: relative;
@@ -3937,16 +3938,57 @@ a.contact-channel-value:hover { color: var(--color-red); }
         gap: 0;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        padding: 96px 22px 32px;
+        padding: 78px 22px 32px;
         border-left: 1px solid rgba(24, 25, 28, .08);
-        background: rgba(255, 253, 250, .99);
-        box-shadow: -24px 0 60px rgba(24, 25, 28, .18);
+        background: #fffdf9;
+        box-shadow: -24px 0 60px rgba(24, 25, 28, .2);
         transform: translateX(100%);
-        transition: transform .26s ease;
+        transition: transform .3s cubic-bezier(.32, .72, 0, 1);
+        will-change: transform;
         z-index: 35;
     }
 
     .site-nav.is-open { transform: translateX(0); }
+
+    /* Botão de fechar (X) — topo do drawer */
+    .nav-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--color-graphite);
+        cursor: pointer;
+    }
+
+    .nav-close:hover { background: rgba(24, 25, 28, .05); }
+
+    .nav-close-box {
+        position: relative;
+        display: block;
+        width: 22px;
+        height: 22px;
+    }
+
+    .nav-close-bar {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        border-radius: 2px;
+        background: currentColor;
+    }
+
+    .nav-close-bar:nth-child(1) { transform: rotate(45deg); }
+    .nav-close-bar:nth-child(2) { transform: rotate(-45deg); }
 
     .site-nav a {
         justify-content: flex-start;
@@ -3971,16 +4013,26 @@ a.contact-channel-value:hover { color: var(--color-red); }
         color: var(--color-graphite);
     }
 
-    .site-nav .nav-cta {
-        justify-content: center;
-        min-height: 46px;
-        margin: 18px 0 0;
-        border: 1px solid var(--color-red);
-        border-radius: 6px;
-        background: var(--color-red);
-        color: var(--color-white);
-        font-size: .96rem;
+    /* No mobile o "Fale Conosco" vira link comum (telefone/e-mail já em destaque) */
+    .site-nav .nav-cta,
+    .site-nav .nav-cta:hover,
+    .site-nav .nav-cta.is-active {
+        justify-content: flex-start;
+        min-height: 48px;
+        margin: 0;
+        padding: 14px 2px;
+        border: 0;
+        border-bottom: 1px solid rgba(24, 25, 28, .065);
+        border-radius: 0;
+        background: transparent;
+        color: rgba(32, 36, 42, .76);
+        font-size: 1rem;
+        font-weight: 500;
+        box-shadow: none;
+        transform: none;
     }
+
+    .site-nav .nav-cta.is-active { color: var(--color-graphite); }
 
     /* Contato + redes no fim do menu */
     .nav-contact {
@@ -4002,11 +4054,11 @@ a.contact-channel-value:hover { color: var(--color-red); }
         border-radius: 8px;
         background: var(--color-red);
         color: var(--color-white);
-        font-size: .98rem;
+        font-size: .96rem;
         font-weight: 600;
-        line-height: 1.25;
+        line-height: 1.3;
         text-decoration: none;
-        word-break: break-word;
+        overflow-wrap: anywhere;
     }
 
     .nav-contact-btn img {
@@ -4018,6 +4070,8 @@ a.contact-channel-value:hover { color: var(--color-red); }
         border-color: rgba(24, 25, 28, .16);
         background: var(--color-white);
         color: var(--color-graphite);
+        font-size: .86rem;
+        font-weight: 500;
     }
 
     /* ícone branco -> escuro no botão claro */

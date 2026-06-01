@@ -34,6 +34,10 @@
         link.addEventListener('click', closeMenu);
     });
 
+    // Botão X dentro do drawer
+    var closeBtn = menu.querySelector('[data-menu-close]');
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
     // Fecha ao tocar fora do menu (no overlay escuro)
     document.addEventListener('click', function (event) {
         if (!menu.classList.contains('is-open')) return;
