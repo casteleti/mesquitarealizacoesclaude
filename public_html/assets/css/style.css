@@ -4281,7 +4281,8 @@ a.contact-channel-value:hover { color: var(--color-red); }
     flex-shrink: 0;
     width: 18px;
     height: 18px;
-    color: var(--color-white);
+    color: var(--color-white) !important;
+    fill: var(--color-white) !important;
 }
 
 .site-footer .footer-contact .footer-contact-item span:last-child {
