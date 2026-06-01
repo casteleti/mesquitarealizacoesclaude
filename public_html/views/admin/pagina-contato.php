@@ -8,7 +8,7 @@
         <p>Cabeçalho exibido no topo da página de Contato.</p>
     </div>
     <label>Título
-        <input name="hero_titulo" value="<?= e($campos['hero_titulo'] ?? '') ?>" maxlength="150" placeholder="Contato">
+        <input name="hero_titulo" value="<?= e($campos['hero_titulo'] ?? '') ?>" maxlength="150" placeholder="Fale Conosco">
     </label>
     <label class="full">Subtítulo
         <input name="hero_subtitulo" value="<?= e($campos['hero_subtitulo'] ?? '') ?>" maxlength="200">
@@ -27,12 +27,20 @@
 
 <div class="form-section form-section-open">
     <div class="section-label">
-        <h2>Texto complementar</h2>
-        <p>Exibido ao lado do formulário de contato. Pode contextualizar a demanda esperada.</p>
+        <h2>Seção de canais</h2>
+        <p>Título e introdução exibidos ao lado do formulário, acima dos canais de contato.</p>
     </div>
-    <label class="full">Texto
-        <textarea name="sobre_texto" rows="5"><?= e($campos['sobre_texto'] ?? '') ?></textarea>
-        <small class="field-help">Opcional. Se vazio, o site exibe um texto padrão.</small>
+    <label>Eyebrow (texto vermelho acima do título)
+        <input name="secao_eyebrow" value="<?= e($campos['secao_eyebrow'] ?? '') ?>" maxlength="60" placeholder="Canais diretos">
+        <small class="field-help">Opcional. Se vazio, exibe "Canais diretos".</small>
+    </label>
+    <label class="full">Título da seção
+        <input name="secao_titulo" value="<?= e($campos['secao_titulo'] ?? '') ?>" maxlength="100" placeholder="Fale com a Mesquita Realizações.">
+        <small class="field-help">Opcional. Se vazio, o site exibe o texto padrão.</small>
+    </label>
+    <label class="full">Parágrafo de introdução
+        <textarea name="sobre_texto" rows="4"><?= e($campos['sobre_texto'] ?? '') ?></textarea>
+        <small class="field-help">Opcional. Se vazio, o site exibe o texto padrão.</small>
     </label>
 </div>
 

@@ -1,7 +1,10 @@
 <?php
 $title      = trim((string) ($pagina['hero_titulo']    ?? 'Fale Conosco'));
 $subtitle   = trim((string) ($pagina['hero_subtitulo'] ?? ''));
-$heroImagem = trim((string) ($pagina['hero_imagem']    ?? ''));
+$heroImagem  = trim((string) ($pagina['hero_imagem']    ?? ''));
+$secaoEyebrow = trim((string) ($pagina['secao_eyebrow'] ?? ''));
+$secaoTitulo  = trim((string) ($pagina['secao_titulo']  ?? ''));
+$secaoIntro   = trim((string) ($pagina['sobre_texto']   ?? ''));
 $phone      = trim((string) ($config['telefone']       ?? ''));
 $whatsapp  = trim((string) ($config['whatsapp']       ?? ''));
 $email     = trim((string) ($config['email']          ?? ''));
@@ -33,9 +36,9 @@ $mapsSearch     = $address !== '' ? 'https://www.google.com/maps/search/?api=1&q
 
         <!-- Lado esquerdo: informações de contato -->
         <div class="contact-info">
-            <span class="eyebrow">Canais diretos</span>
-            <h2>Fale com a<br>Mesquita Realizações.</h2>
-            <p class="contact-intro">Envie uma mensagem pelo formulário ou use um dos canais abaixo para falar diretamente com a equipe.</p>
+            <span class="eyebrow"><?= e($secaoEyebrow ?: 'Canais diretos') ?></span>
+            <h2><?= $secaoTitulo ? nl2br(e($secaoTitulo)) : 'Fale com a<br>Mesquita Realizações.' ?></h2>
+            <p class="contact-intro"><?= $secaoIntro ? e($secaoIntro) : 'Envie uma mensagem pelo formulário ou use um dos canais abaixo para falar diretamente com a equipe.' ?></p>
 
             <ul class="contact-channel-list">
                 <?php if ($phone || $whatsapp): ?>
