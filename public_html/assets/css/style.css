@@ -4271,6 +4271,16 @@ a.contact-channel-value:hover { color: var(--color-red); }
     color: var(--color-red);
 }
 
+/* SVG inline: reset do background/mask/filter usados para <img> */
+.site-footer .footer-contact svg.footer-contact-icon {
+    background: none;
+    -webkit-mask: none;
+    mask: none;
+    filter: none;
+    display: block;
+    flex-shrink: 0;
+}
+
 .site-footer .footer-contact .footer-contact-item span:last-child {
     display: block;
     margin: 0;
