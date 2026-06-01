@@ -50,7 +50,10 @@ abstract class Controller
     protected function abort(int $code = 404): void
     {
         http_response_code($code);
-        require ROOT . '/views/site/404.php';
+        $config   = Configuracao::getAll();
+        $settings = $config;
+        $seo      = Seo::meta(['title' => 'Página não encontrada'], $config);
+        $this->view('site/404', compact('config', 'settings', 'seo'));
         exit;
     }
 

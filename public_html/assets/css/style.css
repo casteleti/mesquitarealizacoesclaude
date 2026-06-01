@@ -4837,3 +4837,62 @@ a.contact-channel-value:hover { color: var(--color-red); }
     from { opacity: 0; transform: translateY(-8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+/* ── Página 404 ─────────────────────────────────────────────────────────────*/
+
+.error-404 {
+    padding: clamp(72px, 10vw, 130px) 0;
+}
+
+.error-404-inner {
+    display: grid;
+    gap: 48px;
+    align-items: center;
+}
+
+@media (min-width: 760px) {
+    .error-404-inner {
+        grid-template-columns: auto 1fr;
+        gap: 64px;
+    }
+}
+
+.error-404-code {
+    font-family: var(--font-heading);
+    font-size: clamp(7rem, 18vw, 13rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -.04em;
+    color: transparent;
+    -webkit-text-stroke: 3px var(--color-red);
+    user-select: none;
+}
+
+.error-404-content .eyebrow { margin-bottom: 12px; }
+
+.error-404-content h1 {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin: 0 0 16px;
+    color: var(--color-text);
+}
+
+.error-404-content p {
+    max-width: 42ch;
+    color: var(--color-muted);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin: 0 0 32px;
+}
+
+.error-404-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+@media (max-width: 759px) {
+    .error-404-inner { text-align: center; }
+    .error-404-actions { justify-content: center; }
+    .error-404-content p { margin-inline: auto; }
+}
