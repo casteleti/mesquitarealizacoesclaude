@@ -1,19 +1,6 @@
 <form class="panel form-grid" method="post" enctype="multipart/form-data" action="<?= e(url('admin/paginas/home')) ?>">
 <?= Csrf::field() ?>
 
-<div class="form-section form-section-open">
-    <div class="section-label">
-        <h2>Seção hero</h2>
-        <p>Primeiro bloco visível ao entrar no site. Deve ser direto e representativo.</p>
-    </div>
-    <label>Título principal
-        <input name="hero_titulo" value="<?= e($campos['hero_titulo'] ?? '') ?>" maxlength="150">
-        <small class="field-help">Se vazio, o site usa o texto padrão configurado no banner ativo.</small>
-    </label>
-    <label class="full">Subtítulo
-        <input name="hero_subtitulo" value="<?= e($campos['hero_subtitulo'] ?? '') ?>" maxlength="200">
-    </label>
-</div>
 
 <div class="form-section form-section-open">
     <div class="section-label">
