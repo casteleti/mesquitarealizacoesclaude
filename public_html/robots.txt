@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /config/
+Disallow: /core/
+Disallow: /includes/
+Disallow: /models/
+Disallow: /controllers/
+Disallow: /views/
+
+Sitemap: https://www.mesquitarealizacoes.com.br/sitemap.xml
