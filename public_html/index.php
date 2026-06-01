@@ -20,7 +20,10 @@ $router->get('/obras/{slug}',       'WorkController@show');
 $router->get('/como-atuamos',       'PageController@comoAtuamos');
 $router->get('/contato',            'ContactController@index');
 $router->post('/contato',           'ContactController@send');
-$router->get('/sitemap.xml',        'SitemapController@index');
+$router->get('/sitemap.xml',          'SitemapController@index');
+$router->get('/sitemap-pages.xml',   'SitemapController@pages');
+$router->get('/sitemap-obras.xml',   'SitemapController@obras');
+$router->get('/sitemap-setores.xml', 'SitemapController@setores');
 
 // Legacy redirect
 $router->get('/sobre', function () {

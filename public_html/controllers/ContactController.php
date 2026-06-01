@@ -11,6 +11,11 @@ class ContactController extends Controller
         $seo    = Seo::meta([
             'title'       => $pagina['seo_title'] ?? 'Contato',
             'description' => $pagina['seo_description'] ?? '',
+            'canonical'   => '/contato',
+            'breadcrumb'  => Seo::breadcrumb([
+                ['name' => 'Home',    'url' => absolute_url('/')],
+                ['name' => 'Contato', 'url' => absolute_url('contato')],
+            ]),
         ]);
         $this->view('site/contato', compact('pagina', 'config', 'seo'));
     }

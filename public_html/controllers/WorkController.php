@@ -21,6 +21,11 @@ class WorkController extends Controller
         $seo = Seo::meta([
             'title'       => $pagina['seo_title'] ?? 'Obras',
             'description' => $pagina['seo_description'] ?? '',
+            'canonical'   => '/obras',
+            'breadcrumb'  => Seo::breadcrumb([
+                ['name' => 'Home',  'url' => absolute_url('/')],
+                ['name' => 'Obras', 'url' => absolute_url('obras')],
+            ]),
         ]);
 
         $this->view('site/obras', compact(
@@ -45,12 +50,20 @@ class WorkController extends Controller
         $seoDesc  = $obra['seo_description'] ?: truncate($obra['descricao'] ?? $obra['subtitulo'] ?? '', 155);
         $seoImage = $obra['seo_image'] ?: $obra['imagem_principal'] ?: ($imagens[0]['caminho'] ?? '');
 
+        $heroUrl = !empty($obra['imagem_principal']) ? '/' . ltrim($obra['imagem_principal'], '/') : null;
+
         $seo = Seo::meta([
-            'title'       => $seoTitle,
-            'description' => $seoDesc,
-            'og_image'    => $seoImage,
-            'og_type'     => 'article',
-            'canonical'   => '/obras/' . $obra['slug'],
+            'title'         => $seoTitle,
+            'description'   => $seoDesc,
+            'og_image'      => $seoImage,
+            'og_type'       => 'article',
+            'canonical'     => '/obras/' . $obra['slug'],
+            'preload_image' => $heroUrl,
+            'breadcrumb'    => Seo::breadcrumb([
+                ['name' => 'Home',         'url' => absolute_url('/')],
+                ['name' => 'Obras',        'url' => absolute_url('obras')],
+                ['name' => $obra['title'], 'url' => absolute_url('obras/' . $obra['slug'])],
+            ]),
         ]);
 
         $this->view('site/obra-detalhe', compact(

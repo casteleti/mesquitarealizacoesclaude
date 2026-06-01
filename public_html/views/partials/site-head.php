@@ -12,12 +12,48 @@
 <?php if (!empty($seo['og_image'])): ?>
 <meta property="og:image" content="<?= e(upload_absolute_url($seo['og_image'])) ?>">
 <?php endif; ?>
+
+<?php if (!empty($seo['preload_image'])): ?>
+<link rel="preload" as="image" href="<?= e($seo['preload_image']) ?>">
+<?php endif; ?>
+
 <link rel="stylesheet" href="<?= e(asset('css/style.css')) ?>">
-<script type="application/ld+json">
-<?= json_encode([
+
+<?php
+// ── LocalBusiness JSON-LD ────────────────────────────────────────────────────
+$sameAs = array_values(array_filter([
+    $settings['instagram'] ?? '',
+    $settings['facebook']  ?? '',
+    $settings['linkedin']  ?? '',
+]));
+
+$schemaOrg = [
     '@context' => 'https://schema.org',
-    '@type' => $seo['schema_type'] ?? 'Organization',
-    'name' => $settings['site_name'] ?? config('name'),
-    'url' => absolute_url('/'),
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
+    '@type'    => ['LocalBusiness', 'GeneralContractor'],
+    'name'     => $settings['site_name'] ?? config('name'),
+    'url'      => absolute_url('/'),
+    'telephone' => $settings['telefone'] ?? '',
+    'email'     => $settings['email']    ?? '',
+];
+
+if (!empty($settings['endereco'])) {
+    $schemaOrg['address'] = [
+        '@type'           => 'PostalAddress',
+        'streetAddress'   => $settings['endereco'],
+        'addressLocality' => 'Jaboticabal',
+        'addressRegion'   => 'SP',
+        'addressCountry'  => 'BR',
+    ];
+}
+
+if ($sameAs) {
+    $schemaOrg['sameAs'] = $sameAs;
+}
+?>
+<script type="application/ld+json">
+<?= json_encode($schemaOrg, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
 </script>
+
+<?php if (!empty($seo['breadcrumb'])): ?>
+<script type="application/ld+json"><?= $seo['breadcrumb'] ?></script>
+<?php endif; ?>

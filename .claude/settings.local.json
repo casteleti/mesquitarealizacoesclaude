@@ -66,7 +66,29 @@
       "Bash(curl -s -o/dev/null -w \"/ → %{http_code}\\\\n\" http://mesquitarealizacoesclaude.test/)",
       "Bash(curl -s -o/dev/null -w \"/index.php → %{http_code}\\\\n\" http://mesquitarealizacoesclaude.test/index.php)",
       "Bash(curl -s -o/dev/null -w \"/admin/login → %{http_code}\\\\n\" http://mesquitarealizacoesclaude.test/admin/login)",
-      "Bash(curl -s -o/dev/null -w \"/obras → %{http_code}\\\\n\" http://mesquitarealizacoesclaude.test/obras)"
+      "Bash(curl -s -o/dev/null -w \"/obras → %{http_code}\\\\n\" http://mesquitarealizacoesclaude.test/obras)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(git push *)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(cat .github/workflows/*.yml)",
+      "Bash(ls .github/)",
+      "Bash(gh secret *)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(\"C:/laragon/bin/php/php-8.3.30-Win32-vs16-x64/php.exe\" --version)",
+      "Bash(\"C:/laragon/bin/php/php-8.3.30-Win32-vs16-x64/php.exe\" -l \"C:/laragon/www/mesquitarealizacoesclaude/public_html/includes/helpers.php\")",
+      "Bash(curl -s -o/dev/null -w \"quem-somos: %{http_code}\\\\n\" http://mesquitarealizacoesclaude.test/quem-somos)",
+      "Bash(curl -s -o/dev/null -w \"setores: %{http_code}\\\\n\" http://mesquitarealizacoesclaude.test/setores)",
+      "Bash(C:/laragon/bin/php/php-8.3.30-Win32-vs16-x64/php.exe -l C:/laragon/www/mesquitarealizacoesclaude/public_html/__TRACKED_VAR__)",
+      "Bash(curl -s -o/dev/null -w \"como-atuamos: %{http_code}\\\\n\" http://mesquitarealizacoesclaude.test/como-atuamos)",
+      "Bash(Get-Content \"C:\\\\laragon\\\\www\\\\mesquitarealizacoesclaude\\\\public_html\\\\views\\\\admin\\\\pagina-contato.php\")",
+      "Bash(Select-String \"Seção|Texto complementar|secao_eyebrow\")",
+      "Bash(dir /s \"C:\\\\laragon\\\\www\\\\mesquitarealizacoesclaude\\\\public_html\")",
+      "Bash(findstr /i \"leads\")",
+      "Bash(Get-ChildItem -Path \"C:\\\\laragon\\\\www\\\\mesquitarealizacoesclaude\\\\public_html\" -Recurse -Filter \"*Controller*\")",
+      "Bash(Select-Object FullName)"
     ]
   }
 }

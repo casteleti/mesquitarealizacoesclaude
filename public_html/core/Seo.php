@@ -23,16 +23,19 @@ class Seo
         }
 
         return [
-            'title'       => $title,
-            'description' => $d['description'],
-            'robots'      => $d['robots'],
-            'canonical'   => $d['canonical'] ?? self::currentUrl(),
-            'og_title'    => $d['og_title']  ?? $title,
+            'title'          => $title,
+            'description'    => $d['description'],
+            'robots'         => $d['robots'],
+            'canonical'      => $d['canonical'] ?? self::currentUrl(),
+            'og_title'       => $d['og_title']  ?? $title,
             'og_description' => $d['og_description'] ?? $d['description'],
-            'og_image'    => $d['og_image'],
-            'og_type'     => $d['og_type'],
-            'og_url'      => $d['canonical'] ?? self::currentUrl(),
-            'site_name'   => $d['site_name'],
+            'og_image'       => $d['og_image'],
+            'og_type'        => $d['og_type'],
+            'og_url'         => $d['canonical'] ?? self::currentUrl(),
+            'site_name'      => $d['site_name'],
+            'breadcrumb'     => $d['breadcrumb']     ?? null,
+            'preload_image'  => $d['preload_image']  ?? null,
+            'schema_type'    => $d['schema_type']    ?? null,
         ];
     }
 
