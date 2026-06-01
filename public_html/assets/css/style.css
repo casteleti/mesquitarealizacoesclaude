@@ -172,6 +172,9 @@ strong {
     gap: 22px;
 }
 
+/* Bloco de contato/redes — só visível no menu mobile (ver media ≤759px) */
+.nav-contact { display: none; }
+
 .site-nav a {
     position: relative;
     min-height: 38px;
@@ -215,28 +218,55 @@ strong {
 }
 
 .menu-toggle {
-    min-height: 40px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    border: 1px solid rgba(24, 25, 28, .12);
-    border-radius: 4px;
-    background: rgba(255, 255, 255, .54);
-    color: rgba(32, 36, 42, .82);
-    padding: 9px 12px;
-    font-size: .84rem;
-    font-weight: 560;
-    letter-spacing: .02em;
+    flex: 0 0 auto;
+    border: 1px solid rgba(24, 25, 28, .14);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, .6);
+    color: rgba(32, 36, 42, .9);
+    padding: 11px;
     cursor: pointer;
-    transition: border-color .18s ease, color .18s ease, background .18s ease;
+    transition: border-color .18s ease, background .18s ease;
 }
 
 .menu-toggle:hover {
     border-color: rgba(215, 25, 32, .34);
-    color: var(--color-graphite);
     background: var(--color-white);
 }
+
+/* Ícone hambúrguer (3 traços → vira "X" quando aberto) */
+.menu-toggle-box {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 16px;
+}
+
+.menu-toggle-bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform .22s ease, opacity .15s ease, top .22s ease;
+}
+
+.menu-toggle-bar:nth-child(1) { top: 0; }
+.menu-toggle-bar:nth-child(2) { top: 7px; }
+.menu-toggle-bar:nth-child(3) { top: 14px; }
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(1) { top: 7px; transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(3) { top: 7px; transform: rotate(-45deg); }
+
+/* Header compacto ao rolar — logo encolhe e a barra fica estreita */
+.brand-logo { transition: height .22s ease; }
+.header-inner { transition: min-height .22s ease; }
+.site-header.is-compact .header-inner { min-height: 62px; }
+.site-header.is-compact .brand-logo { height: 42px; }
 
 .nav-cta,
 .button {
@@ -3880,28 +3910,35 @@ a.contact-channel-value:hover { color: var(--color-red); }
 }
 
 @media (max-width: 759px) {
+    /* Logo ~30% maior no celular; encolhe ao rolar */
+    .brand-logo { height: 62px; }
+    .header-inner { min-height: 86px; }
+    .site-header.is-compact .brand-logo { height: 42px; }
+    .site-header.is-compact .header-inner { min-height: 58px; }
+
+    /* Drawer lateral (desliza da direita) */
     .site-nav {
         position: fixed;
-        inset: 0 0 0 auto;
-        width: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(86vw, 340px);
         display: flex;
         flex-direction: column;
         align-items: stretch;
         gap: 0;
-        overflow: hidden;
-        padding: 86px 0 22px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 96px 22px 32px;
         border-left: 1px solid rgba(24, 25, 28, .08);
-        background: rgba(255, 253, 250, .985);
-        box-shadow: -24px 0 60px rgba(24, 25, 28, .12);
-        transition: width .22s ease, padding .22s ease;
-        z-index: -1;
+        background: rgba(255, 253, 250, .99);
+        box-shadow: -24px 0 60px rgba(24, 25, 28, .18);
+        transform: translateX(100%);
+        transition: transform .26s ease;
+        z-index: 35;
     }
 
-    .site-nav.is-open {
-        width: min(86vw, 360px);
-        padding-inline: 20px;
-        z-index: 39;
-    }
+    .site-nav.is-open { transform: translateX(0); }
 
     .site-nav a {
         justify-content: flex-start;
@@ -3910,7 +3947,7 @@ a.contact-channel-value:hover { color: var(--color-red); }
         border-radius: 0;
         padding: 14px 2px;
         color: rgba(32, 36, 42, .76);
-        font-size: .98rem;
+        font-size: 1rem;
         font-weight: 500;
     }
 
@@ -3928,20 +3965,88 @@ a.contact-channel-value:hover { color: var(--color-red); }
 
     .site-nav .nav-cta {
         justify-content: center;
-        min-height: 44px;
+        min-height: 46px;
         margin: 18px 0 0;
         border: 1px solid var(--color-red);
-        border-radius: 4px;
+        border-radius: 6px;
         background: var(--color-red);
         color: var(--color-white);
+        font-size: .96rem;
+    }
+
+    /* Contato + redes no fim do menu */
+    .nav-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 22px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(24, 25, 28, .1);
+    }
+
+    .nav-contact-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 54px;
+        padding: 14px 16px;
+        border: 1px solid var(--color-red);
+        border-radius: 8px;
+        background: var(--color-red);
+        color: var(--color-white);
+        font-size: .98rem;
+        font-weight: 600;
+        line-height: 1.25;
+        text-decoration: none;
+        word-break: break-word;
+    }
+
+    .nav-contact-btn img {
+        flex: 0 0 auto;
+        filter: brightness(0) invert(1);
+    }
+
+    .nav-contact-btn-light {
+        border-color: rgba(24, 25, 28, .16);
+        background: var(--color-white);
+        color: var(--color-graphite);
+    }
+
+    /* ícone branco -> escuro no botão claro */
+    .nav-contact-btn-light img { filter: brightness(0); opacity: .72; }
+
+    .nav-social {
+        display: flex;
+        gap: 12px;
+        margin-top: 6px;
+    }
+
+    .nav-social-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(24, 25, 28, .12);
+        border-radius: 10px;
+        background: var(--color-white);
+        transition: border-color .18s ease, transform .16s ease;
+    }
+
+    /* ícones de rede são brancos no arquivo -> escurece p/ aparecer no chip branco */
+    .nav-social-icon img { filter: brightness(0); opacity: .7; }
+
+    .nav-social-icon:hover {
+        border-color: rgba(215, 25, 32, .4);
+        transform: translateY(-1px);
     }
 
     body.menu-open::before {
         content: "";
         position: fixed;
         inset: 0;
-        z-index: 38;
-        background: rgba(24, 25, 28, .46);
+        z-index: 30;
+        background: rgba(24, 25, 28, .5);
     }
 
     .home-hero,
@@ -3986,11 +4091,13 @@ a.contact-channel-value:hover { color: var(--color-red); }
 
 @media (max-width: 520px) {
     .container { padding-inline: 14px; }
-    .header-inner { min-height: 76px; gap: 14px; }
-    .brand { max-width: calc(100% - 92px); font-size: .94rem; }
-    .brand-logo { height: 46px; }
+    .header-inner { min-height: 82px; gap: 14px; }
+    .brand { max-width: calc(100% - 80px); font-size: .94rem; }
+    .brand-logo { height: 56px; }
     .brand-mark { height: 26px; font-size: .78rem; }
-    .menu-toggle { flex: 0 0 auto; padding-inline: 12px; }
+    .menu-toggle { flex: 0 0 auto; }
+    .site-header.is-compact .header-inner { min-height: 56px; }
+    .site-header.is-compact .brand-logo { height: 40px; }
     .hero h1,
     .page-hero h1 { font-size: 2rem; font-weight: 340; line-height: 1.07; }
     .hero p,

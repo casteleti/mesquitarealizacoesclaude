@@ -1,22 +1,44 @@
+/* Header compacto ao rolar (logo encolhe + barra estreita) */
+(function () {
+    var header = document.querySelector('[data-site-header]');
+    if (!header) return;
+
+    function onScroll() {
+        header.classList.toggle('is-compact', window.pageYOffset > 24);
+    }
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
+/* Menu mobile */
 (function () {
     var button = document.querySelector('[data-menu-toggle]');
     var menu = document.querySelector('[data-menu]');
     if (!button || !menu) return;
 
-    function closeMenu() {
-        menu.classList.remove('is-open');
-        document.body.classList.remove('menu-open');
-        button.setAttribute('aria-expanded', 'false');
-    }
-
-    button.addEventListener('click', function () {
-        var open = menu.classList.toggle('is-open');
+    function setState(open) {
+        menu.classList.toggle('is-open', open);
         document.body.classList.toggle('menu-open', open);
         button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        button.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    }
+
+    function closeMenu() { setState(false); }
+
+    button.addEventListener('click', function () {
+        setState(!menu.classList.contains('is-open'));
     });
 
     menu.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', closeMenu);
+    });
+
+    // Fecha ao tocar fora do menu (no overlay escuro)
+    document.addEventListener('click', function (event) {
+        if (!menu.classList.contains('is-open')) return;
+        if (menu.contains(event.target) || button.contains(event.target)) return;
+        closeMenu();
     });
 
     document.addEventListener('keydown', function (event) {
