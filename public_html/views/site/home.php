@@ -137,7 +137,7 @@ $introTexto   = trim((string) ($pagina['intro_texto'] ?? ''));
 </section>
 <?php endif; ?>
 
-<?php if ($processo): ?>
+<?php if ($gestao): ?>
 <section class="section home-process">
     <div class="container home-process-grid">
         <div>
@@ -147,12 +147,15 @@ $introTexto   = trim((string) ($pagina['intro_texto'] ?? ''));
             <a class="button" href="<?= e(url('como-atuamos')) ?>">Conheça o processo</a>
         </div>
         <div class="process-steps">
-            <?php foreach ($processo as $etapa): ?>
+            <?php foreach ($gestao as $card): ?>
             <article>
-                <span><?= e($etapa['numero']) ?></span>
-                <h3><?= e($etapa['titulo']) ?></h3>
-                <?php if (!empty($etapa['descricao'])): ?>
-                    <p><?= e(truncate($etapa['descricao'], 100)) ?></p>
+                <?php $iconeHtml = render_icon($card['icone_arquivo'] ?? '', $card['icone'] ?? '', 'icon', 24); ?>
+                <?php if ($iconeHtml): ?>
+                    <span class="process-step-icon" aria-hidden="true"><?= $iconeHtml ?></span>
+                <?php endif; ?>
+                <h3><?= e($card['titulo']) ?></h3>
+                <?php if (!empty($card['texto'])): ?>
+                    <p><?= e(truncate($card['texto'], 100)) ?></p>
                 <?php endif; ?>
             </article>
             <?php endforeach; ?>

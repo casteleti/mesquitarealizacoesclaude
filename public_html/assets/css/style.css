@@ -994,6 +994,18 @@ strong {
     color: var(--color-white);
 }
 
+.process-step-icon {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-red);
+}
+
+.process-step-icon .icon-upload {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) saturate(100%) invert(18%) sepia(96%) saturate(1000%) hue-rotate(343deg) brightness(97%);
+}
+
 .home-final-cta {
     padding: 88px 0;
     background: var(--color-warm);

@@ -10,7 +10,7 @@ class HomeController extends Controller
         $setores      = Setor::destaques();
         $destaques    = Obra::destaques(6);
         $diferenciais = Diferencial::paraHome();
-        $processo     = EtapaProcesso::primeiras(3);
+        $gestao       = GestaoCard::ativos();
         $pagina       = PaginaConteudo::get('home');
         $config       = Configuracao::getAll();
 
@@ -21,7 +21,7 @@ class HomeController extends Controller
 
         $this->view('site/home', compact(
             'banners', 'setores', 'destaques', 'diferenciais',
-            'processo', 'pagina', 'config', 'seo'
+            'gestao', 'pagina', 'config', 'seo'
         ));
     }
 }
