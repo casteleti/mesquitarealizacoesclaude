@@ -19,6 +19,15 @@
 
 <link rel="stylesheet" href="<?= e(asset('css/style.css')) ?>">
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G6RX9JECKS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-G6RX9JECKS');
+</script>
+
 <?php
 // ── LocalBusiness JSON-LD ────────────────────────────────────────────────────
 $sameAs = array_values(array_filter([
