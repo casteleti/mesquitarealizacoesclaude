@@ -4840,59 +4840,56 @@ a.contact-channel-value:hover { color: var(--color-red); }
 /* ── Página 404 ─────────────────────────────────────────────────────────────*/
 
 .error-404 {
-    padding: clamp(72px, 10vw, 130px) 0;
+    background: var(--color-soft);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    padding: clamp(72px, 10vw, 120px) 0;
 }
 
 .error-404-inner {
-    display: grid;
-    gap: 48px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-}
-
-@media (min-width: 760px) {
-    .error-404-inner {
-        grid-template-columns: auto 1fr;
-        gap: 64px;
-    }
+    text-align: center;
+    gap: 0;
 }
 
 .error-404-icon {
-    flex-shrink: 0;
+    color: var(--color-red);
+    margin-bottom: 36px;
 }
 
-.error-404-icon img {
-    display: block;
-    width: clamp(180px, 22vw, 280px);
+.error-404-icon svg {
+    width: clamp(140px, 18vw, 220px);
     height: auto;
-    filter: brightness(0) saturate(100%) invert(18%) sepia(96%) saturate(1000%) hue-rotate(343deg) brightness(97%);
+    display: block;
 }
 
-.error-404-content .eyebrow { margin-bottom: 12px; }
+.error-404-inner .eyebrow {
+    margin-bottom: 14px;
+}
 
-.error-404-content h1 {
-    font-size: clamp(1.8rem, 3.5vw, 3rem);
-    font-weight: 700;
-    line-height: 1.12;
-    margin: 0 0 16px;
+.error-404-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 740;
+    line-height: 1.1;
     color: var(--color-text);
+    margin: 0 0 18px;
 }
 
-.error-404-content p {
-    max-width: 42ch;
+.error-404-desc {
+    max-width: 46ch;
     color: var(--color-muted);
-    font-size: 1rem;
+    font-size: 1.02rem;
     line-height: 1.75;
-    margin: 0 0 32px;
+    margin: 0 0 36px;
 }
 
 .error-404-actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
-}
-
-@media (max-width: 759px) {
-    .error-404-inner { text-align: center; }
-    .error-404-actions { justify-content: center; }
-    .error-404-content p { margin-inline: auto; }
 }
