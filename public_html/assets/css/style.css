@@ -709,12 +709,12 @@ strong {
 
 .home-hero-copy h1 {
     max-width: 690px;
-    margin: 18px 0 20px;
+    margin: 10px 0 16px;
     font-family: var(--font-heading);
-    font-size: clamp(2.18rem, 4.18vw, 3.72rem);
-    font-weight: 590;
-    line-height: 1.1;
-    letter-spacing: 0;
+    font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+    font-weight: 340;
+    line-height: 1.05;
+    letter-spacing: -.01em;
     overflow-wrap: anywhere;
 }
 
@@ -788,9 +788,10 @@ strong {
 }
 
 .home-hero .eyebrow {
-    color: rgba(255, 255, 255, .72);
-    font-weight: 650;
-    letter-spacing: .18em;
+    color: rgba(255, 255, 255, .65);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .20em;
 }
 
 .home-hero .hero-actions {
@@ -3969,8 +3970,8 @@ a.contact-channel-value:hover { color: var(--color-red); }
     .home-hero-copy h1 {
         max-width: 11.5em;
         font-size: 2rem;
-        font-weight: 580;
-        line-height: 1.13;
+        font-weight: 340;
+        line-height: 1.07;
     }
     .home-hero .hero-actions {
         align-items: stretch;
