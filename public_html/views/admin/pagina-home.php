@@ -19,6 +19,21 @@
 
 <div class="form-section form-section-open">
     <div class="section-label">
+        <h2>Seção "Por que confiar"</h2>
+        <p>Eyebrow e título da seção de diferenciais na home. Os itens são gerenciados em <a href="<?= e(url('admin/diferenciais')) ?>">Diferenciais</a>.</p>
+    </div>
+    <label>Eyebrow (texto vermelho acima do título)
+        <input name="confiar_eyebrow" value="<?= e($campos['confiar_eyebrow'] ?? '') ?>" maxlength="40" placeholder="Por que confiar">
+        <small class="field-help">Máx. 40 caracteres. Deixe vazio para usar o texto padrão.</small>
+    </label>
+    <label class="full">Título da seção
+        <input name="confiar_titulo" value="<?= e($campos['confiar_titulo'] ?? '') ?>" maxlength="100" placeholder="Uma atuação orientada por clareza, presença e previsibilidade.">
+        <small class="field-help">Máx. 100 caracteres. Deixe vazio para usar o texto padrão.</small>
+    </label>
+</div>
+
+<div class="form-section form-section-open">
+    <div class="section-label">
         <h2>Seção CTA final</h2>
         <p>Chamada para ação no final da página home.</p>
     </div>

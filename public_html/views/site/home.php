@@ -115,8 +115,8 @@ $introTexto   = trim((string) ($pagina['intro_texto'] ?? ''));
 <section class="section section-soft home-proof">
     <div class="container">
         <div class="section-heading">
-            <span class="eyebrow">Por que confiar</span>
-            <h2>Uma atuação orientada por clareza, presença e previsibilidade.</h2>
+            <span class="eyebrow"><?= e($pagina['confiar_eyebrow'] ?? '') ?: 'Por que confiar' ?></span>
+            <h2><?= e($pagina['confiar_titulo'] ?? '') ?: 'Uma atuação orientada por clareza, presença e previsibilidade.' ?></h2>
         </div>
         <div class="proof-grid">
             <?php foreach ($diferenciais as $i => $dif): ?>
