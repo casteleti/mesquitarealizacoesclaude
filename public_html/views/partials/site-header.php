@@ -48,7 +48,7 @@ $navSocial = [
                 <?php if ($navEmail !== ''): ?>
                     <a class="nav-contact-btn nav-contact-btn-light" href="mailto:<?= e($navEmail) ?>">
                         <img src="<?= e(asset('icons/o-email.svg')) ?>" alt="" aria-hidden="true" width="20" height="20">
-                        <span><?= e($navEmail) ?></span>
+                        <span>Enviar E-mail</span>
                     </a>
                 <?php endif; ?>
                 <div class="nav-social" aria-label="Redes sociais">

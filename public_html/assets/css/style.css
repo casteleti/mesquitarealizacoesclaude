@@ -4044,64 +4044,67 @@ a.contact-channel-value:hover { color: var(--color-red); }
         border-top: 1px solid rgba(24, 25, 28, .1);
     }
 
-    .nav-contact-btn {
+    /* .site-nav prefixa p/ vencer o seletor .site-nav a (cor do link) e manter
+       o texto branco no botão de telefone */
+    .site-nav .nav-contact-btn {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
         min-height: 54px;
-        padding: 14px 16px;
+        padding: 14px 20px;
         border: 1px solid var(--color-red);
         border-radius: 8px;
         background: var(--color-red);
-        color: var(--color-white);
-        font-size: .96rem;
-        font-weight: 600;
+        color: #fff;
+        font-size: .98rem;
+        font-weight: 700;
         line-height: 1.3;
         text-decoration: none;
         overflow-wrap: anywhere;
     }
 
-    .nav-contact-btn img {
+    .site-nav .nav-contact-btn img {
         flex: 0 0 auto;
         filter: brightness(0) invert(1);
     }
 
-    .nav-contact-btn-light {
+    .site-nav .nav-contact-btn-light {
         border-color: rgba(24, 25, 28, .16);
         background: var(--color-white);
         color: var(--color-graphite);
-        font-size: .86rem;
-        font-weight: 500;
+        font-weight: 600;
     }
 
-    /* ícone branco -> escuro no botão claro */
-    .nav-contact-btn-light img { filter: brightness(0); opacity: .72; }
+    .site-nav .nav-contact-btn-light img { filter: brightness(0); opacity: .72; }
 
+    /* Redes: sem moldura, só o ícone */
     .nav-social {
         display: flex;
-        gap: 12px;
-        margin-top: 6px;
+        gap: 20px;
+        margin-top: 14px;
+        padding-left: 2px;
     }
 
     .nav-social-icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 48px;
-        height: 48px;
-        border: 1px solid rgba(24, 25, 28, .12);
-        border-radius: 10px;
-        background: var(--color-white);
-        transition: border-color .18s ease, transform .16s ease;
+        width: 30px;
+        height: 30px;
+        border: 0;
+        background: transparent;
+        transition: transform .16s ease, opacity .16s ease;
     }
 
-    /* ícones de rede são brancos no arquivo -> escurece p/ aparecer no chip branco */
-    .nav-social-icon img { filter: brightness(0); opacity: .7; }
-
-    .nav-social-icon:hover {
-        border-color: rgba(215, 25, 32, .4);
-        transform: translateY(-1px);
+    .nav-social-icon img {
+        width: 26px;
+        height: 26px;
+        filter: brightness(0);
+        opacity: .66;
     }
+
+    .nav-social-icon:hover { transform: translateY(-1px); }
+    .nav-social-icon:hover img { opacity: 1; }
 
     body.menu-open::before {
         content: "";
