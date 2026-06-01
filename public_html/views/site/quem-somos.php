@@ -2,7 +2,6 @@
 $heroTitle          = trim((string) ($pagina['hero_titulo'] ?? '')) ?: 'Quem Somos';
 $heroSubtitle       = trim((string) ($pagina['hero_subtitulo']        ?? ''));
 $heroImagem         = trim((string) ($pagina['hero_imagem']           ?? ''));
-$heroImagemMobile   = trim((string) ($pagina['hero_imagem_mobile']    ?? ''));
 $sobreTitulo        = trim((string) ($pagina['sobre_titulo']          ?? ''));
 $sobreTexto         = trim((string) ($pagina['sobre_texto']           ?? ''));
 $missaoTitulo       = trim((string) ($pagina['missao_titulo']         ?? 'Missão'));
@@ -17,7 +16,7 @@ $ctaTitulo          = trim((string) ($pagina['cta_titulo']            ?? ''));
 $ctaTexto           = trim((string) ($pagina['cta_texto']             ?? ''));
 ?>
 
-<section class="page-hero" <?= page_hero_style($heroImagem, $heroImagemMobile) ?>>
+<section class="page-hero" <?= page_hero_style($heroImagem) ?>>
     <div class="container page-hero-grid">
         <div class="page-hero-copy">
             <span class="eyebrow">Institucional</span>

@@ -1,7 +1,6 @@
 <form class="panel form-grid" method="post" enctype="multipart/form-data" action="<?= e(url('admin/paginas/quem-somos')) ?>">
 <?= Csrf::field() ?>
 <input type="hidden" name="hero_imagem_atual" value="<?= e($campos['hero_imagem'] ?? '') ?>">
-<input type="hidden" name="hero_imagem_mobile_atual" value="<?= e($campos['hero_imagem_mobile'] ?? '') ?>">
 
 <div class="form-section form-section-open">
     <div class="section-label">
@@ -15,24 +14,14 @@
         <input name="hero_subtitulo" value="<?= e($campos['hero_subtitulo'] ?? '') ?>" maxlength="200">
     </label>
 
-    <label>Banner — Desktop (horizontal)
+    <label>Imagem de fundo do banner
         <input type="file" name="hero_imagem" accept="image/jpeg,image/png,image/webp" data-preview-input data-preview-target="preview-hero-desktop">
-        <small class="field-help">Opcional. JPG, PNG ou WebP. Recomendado: 1600×600px (horizontal). Exibido em telas largas.</small>
+        <small class="field-help">Opcional. JPG, PNG ou WebP. Recomendado: 1600×600px (horizontal). Usada no desktop e no celular.</small>
     </label>
     <?php if (!empty($campos['hero_imagem'])): ?>
-        <img id="preview-hero-desktop" class="image-preview image-preview-wide" src="<?= e(upload_url($campos['hero_imagem'])) ?>" alt="Banner desktop atual">
+        <img id="preview-hero-desktop" class="image-preview image-preview-wide" src="<?= e(upload_url($campos['hero_imagem'])) ?>" alt="Banner atual">
     <?php else: ?>
-        <img id="preview-hero-desktop" class="image-preview image-preview-wide" hidden alt="Preview desktop">
-    <?php endif; ?>
-
-    <label>Banner — Mobile (vertical)
-        <input type="file" name="hero_imagem_mobile" accept="image/jpeg,image/png,image/webp" data-preview-input data-preview-target="preview-hero-mobile">
-        <small class="field-help">Opcional. Recomendado: 800×1200px (vertical). Exibido em celulares (≤768px). Se vazio, usa o banner desktop.</small>
-    </label>
-    <?php if (!empty($campos['hero_imagem_mobile'])): ?>
-        <img id="preview-hero-mobile" class="image-preview image-preview-tall" src="<?= e(upload_url($campos['hero_imagem_mobile'])) ?>" alt="Banner mobile atual">
-    <?php else: ?>
-        <img id="preview-hero-mobile" class="image-preview image-preview-tall" hidden alt="Preview mobile">
+        <img id="preview-hero-desktop" class="image-preview image-preview-wide" hidden alt="Preview do banner">
     <?php endif; ?>
 </div>
 
