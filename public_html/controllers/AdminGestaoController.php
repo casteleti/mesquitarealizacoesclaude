@@ -17,65 +17,57 @@ class AdminGestaoController extends Controller
         $this->view('admin/gestao-form', ['item' => null]);
     }
 
-    public function store(): void
-    {
-        $this->requireAdmin();
-        $this->csrfVerify();
-
-        $v = new Validator($_POST);
-        $v->required('titulo', 'Título')->required('icone', 'Ícone');
-
-        if (!$v->passes()) {
-            $_SESSION['old'] = $_POST;
-            $_SESSION['errors'] = $v->errors();
-            $this->redirect('/admin/gestao/create');
-        }
-
-        GestaoCard::insert([
-            'icone'  => strip_tags(trim($_POST['icone'])),
-            'titulo' => strip_tags(trim($_POST['titulo'])),
-            'texto'  => strip_tags(trim($_POST['texto'] ?? '')),
-            'ordem'  => (int) ($_POST['ordem'] ?? 0),
-            'ativo'  => isset($_POST['ativo']) ? 1 : 0,
-        ]);
-
-        $this->flash('success', 'Card criado.');
-        $this->redirect('/admin/gestao');
-    }
+    public function store(): void { $this->save(); }
 
     public function edit(string $id): void
     {
         $this->requireAdmin();
         $item = GestaoCard::find((int) $id);
-        if (!$item) {
-            $this->abort(404);
-        }
+        if (!$item) { $this->abort(404); }
         $this->view('admin/gestao-form', compact('item'));
     }
 
-    public function update(string $id): void
+    public function update(string $id): void { $this->save((int) $id); }
+
+    private function save(?int $id = null): void
     {
         $this->requireAdmin();
         $this->csrfVerify();
 
         $v = new Validator($_POST);
-        $v->required('titulo', 'Título')->required('icone', 'Ícone');
+        $v->required('titulo', 'Título')->maxLength('titulo', 35, 'Título');
 
         if (!$v->passes()) {
-            $_SESSION['old'] = $_POST;
+            $_SESSION['old']    = $_POST;
             $_SESSION['errors'] = $v->errors();
-            $this->redirect('/admin/gestao/' . $id . '/edit');
+            $this->redirect($id ? '/admin/gestao/' . $id . '/edit' : '/admin/gestao/create');
         }
 
-        GestaoCard::update((int) $id, [
-            'icone'  => strip_tags(trim($_POST['icone'])),
-            'titulo' => strip_tags(trim($_POST['titulo'])),
-            'texto'  => strip_tags(trim($_POST['texto'] ?? '')),
-            'ordem'  => (int) ($_POST['ordem'] ?? 0),
-            'ativo'  => isset($_POST['ativo']) ? 1 : 0,
-        ]);
+        $current      = $id ? (GestaoCard::find($id) ?? []) : [];
+        $iconeArquivo = $current['icone_arquivo'] ?? '';
 
-        $this->flash('success', 'Card atualizado.');
+        if (!empty($_FILES['icone_arquivo']['tmp_name'])) {
+            $novo = Upload::image($_FILES['icone_arquivo'], 'icones', $iconeArquivo ?: null);
+            if ($novo) { $iconeArquivo = $novo; }
+        }
+
+        $data = [
+            'icone'         => strip_tags(trim($_POST['icone'] ?? '')),
+            'icone_arquivo' => $iconeArquivo,
+            'titulo'        => strip_tags(trim($_POST['titulo'])),
+            'texto'         => strip_tags(trim($_POST['texto'] ?? '')),
+            'ordem'         => (int) ($_POST['ordem'] ?? 0),
+            'ativo'         => isset($_POST['ativo']) ? 1 : 0,
+        ];
+
+        try {
+            $id ? GestaoCard::update($id, $data) : GestaoCard::insert($data);
+            $this->flash('success', 'Card salvo.');
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+            $this->flash('error', 'Não foi possível salvar.');
+        }
+
         $this->redirect('/admin/gestao');
     }
 
@@ -93,9 +85,7 @@ class AdminGestaoController extends Controller
         $this->requireAdmin();
         $this->csrfVerify();
         $item = GestaoCard::find((int) $id);
-        if ($item) {
-            GestaoCard::update((int) $id, ['ativo' => $item['ativo'] ? 0 : 1]);
-        }
+        if ($item) { GestaoCard::update((int) $id, ['ativo' => $item['ativo'] ? 0 : 1]); }
         $this->redirect('/admin/gestao');
     }
 
