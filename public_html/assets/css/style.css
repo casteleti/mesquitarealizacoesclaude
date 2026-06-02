@@ -263,11 +263,19 @@ strong {
 .menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(2) { opacity: 0; }
 .menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(3) { top: 7px; transform: rotate(-45deg); }
 
-/* Header compacto ao rolar — logo encolhe e a barra fica estreita */
+/* Header compacto ao rolar — logo encolhe, barra estreita e fundo sólido */
 .brand-logo { transition: height .22s ease; }
 .header-inner { transition: min-height .22s ease; }
+.site-header { transition: background-color .22s ease; }
 .site-header.is-compact .header-inner { min-height: 62px; }
 .site-header.is-compact .brand-logo { height: 42px; }
+
+/* Ao rolar: fundo sólido #fdfdfd, sem transparência nem blur (desktop + mobile) */
+.site-header.is-compact {
+    background: #fdfdfd;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
 
 .nav-cta,
 .button {
