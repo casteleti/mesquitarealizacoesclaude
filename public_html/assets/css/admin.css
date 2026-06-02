@@ -1429,3 +1429,77 @@ td.actions button,
 }
 
 .btn-table-danger:hover { background: #fee2e2; border-color: #ef4444; }
+
+/* ── Galeria de fotos da obra ───────────────────────────────────────────────*/
+
+.obra-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.obra-gallery-item {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.obra-gallery-item img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+}
+
+.obra-gallery-legenda {
+    display: block;
+    padding: 4px 6px;
+    font-size: .75rem;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.obra-gallery-delete {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.6);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background .14s;
+}
+
+.obra-gallery-delete:hover { background: #b91c1c; }
+
+.obra-gallery-upload-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 2px dashed #d1d5db;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #6b7280;
+    font-size: .9rem;
+    transition: border-color .15s, color .15s;
+}
+
+.obra-gallery-upload-label:hover {
+    border-color: #c0392b;
+    color: #c0392b;
+}

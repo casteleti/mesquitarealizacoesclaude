@@ -71,6 +71,107 @@
         </label>
     </div>
 
+    <?php if ($isEdit): ?>
+    <div class="form-section form-section-open" id="obra-gallery-section">
+        <div class="section-label">
+            <h2>Galeria de fotos</h2>
+            <p>Fotos adicionais exibidas na página da obra. Tamanho ideal: <strong>1200×800px</strong>. Máx. 8MB por foto.</p>
+        </div>
+
+        <?php
+        $galeriaImagens = ObraImagem::deObra((int) $item['id']);
+        ?>
+
+        <div class="obra-gallery-grid" id="obra-gallery-grid">
+            <?php foreach ($galeriaImagens as $img): ?>
+            <div class="obra-gallery-item" data-id="<?= e((string) $img['id']) ?>">
+                <img src="<?= e(upload_url($img['caminho'])) ?>" alt="<?= e($img['legenda'] ?: 'Foto da obra') ?>">
+                <?php if (!empty($img['legenda'])): ?>
+                    <span class="obra-gallery-legenda"><?= e($img['legenda']) ?></span>
+                <?php endif; ?>
+                <button type="button" class="obra-gallery-delete" data-id="<?= e((string) $img['id']) ?>" title="Remover foto">×</button>
+            </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="obra-gallery-upload">
+            <label class="obra-gallery-upload-label" for="obra-gallery-input">
+                <span>＋ Adicionar foto</span>
+                <input type="file" id="obra-gallery-input" accept="image/jpeg,image/png,image/webp" multiple style="display:none">
+            </label>
+            <input type="text" id="obra-gallery-legenda" placeholder="Legenda (opcional)" maxlength="100" style="margin-top:8px">
+            <p class="field-help" style="margin-top:4px">Selecione uma ou mais fotos. A legenda será aplicada à última foto enviada.</p>
+        </div>
+
+        <div id="obra-gallery-msg" style="margin-top:8px"></div>
+    </div>
+
+    <script>
+    (function(){
+        const obraId   = <?= (int) $item['id'] ?>;
+        const csrfToken = document.querySelector('input[name="_token"]').value;
+        const grid     = document.getElementById('obra-gallery-grid');
+        const input    = document.getElementById('obra-gallery-input');
+        const legendaInput = document.getElementById('obra-gallery-legenda');
+        const msg      = document.getElementById('obra-gallery-msg');
+
+        function showMsg(text, type) {
+            msg.textContent = text;
+            msg.style.color = type === 'error' ? '#b91c1c' : '#166534';
+            setTimeout(() => msg.textContent = '', 3000);
+        }
+
+        // Upload
+        document.querySelector('.obra-gallery-upload-label').addEventListener('click', () => input.click());
+        input.addEventListener('change', async function() {
+            const files = Array.from(this.files);
+            for (const file of files) {
+                const fd = new FormData();
+                fd.append('_token', csrfToken);
+                fd.append('imagem', file);
+                fd.append('legenda', legendaInput.value);
+                try {
+                    const res = await fetch(`/admin/obras/${obraId}/imagens`, { method: 'POST', body: fd });
+                    const json = await res.json();
+                    if (json.ok) {
+                        const div = document.createElement('div');
+                        div.className = 'obra-gallery-item';
+                        div.dataset.id = json.id;
+                        div.innerHTML = `<img src="${json.caminho}" alt=""><button type="button" class="obra-gallery-delete" data-id="${json.id}" title="Remover foto">×</button>`;
+                        grid.appendChild(div);
+                        bindDelete(div.querySelector('.obra-gallery-delete'));
+                        showMsg('Foto adicionada.', 'ok');
+                    } else {
+                        showMsg(json.error || 'Erro no upload.', 'error');
+                    }
+                } catch(e) {
+                    showMsg('Erro ao enviar foto.', 'error');
+                }
+            }
+            this.value = '';
+        });
+
+        // Delete
+        function bindDelete(btn) {
+            btn.addEventListener('click', async function() {
+                if (!confirm('Remover esta foto?')) return;
+                const id = this.dataset.id;
+                const fd = new FormData();
+                fd.append('_token', csrfToken);
+                const res = await fetch(`/admin/obras/imagens/${id}/delete`, { method: 'POST', body: fd });
+                const json = await res.json();
+                if (json.ok) {
+                    this.closest('.obra-gallery-item').remove();
+                    showMsg('Foto removida.', 'ok');
+                }
+            });
+        }
+
+        document.querySelectorAll('.obra-gallery-delete').forEach(bindDelete);
+    })();
+    </script>
+    <?php endif; ?>
+
     <details class="form-section advanced">
         <summary><span>Avançado: URL e posição</span></summary>
         <div class="advanced-grid">
