@@ -5129,7 +5129,7 @@ a.contact-channel-value:hover { color: var(--color-red); }
 
 .home-slides {
     position: relative;
-    min-height: 86vh;
+    min-height: 640px; /* desktop: altura fixa p/ deixar o conteúdo abaixo aparecer */
 }
 
 .home-slide {
