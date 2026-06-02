@@ -160,7 +160,7 @@ $slides       = !empty($banners) ? $banners : [];
 <?php endif; ?>
 
 <?php if ($gestao): ?>
-<section class="section home-process">
+<section class="section home-process home-process--photo">
     <div class="container home-process-grid">
         <div>
             <span class="eyebrow">Como atuamos</span>
