@@ -19,7 +19,10 @@ class HomeController extends Controller
             'description' => $pagina['seo_description'] ?? '',
         ]);
 
-        $this->view('site/home', compact(
+        // Variante de teste do slider novo (via entrar2.php)
+        $view = (($GLOBALS['HOME_VARIANT'] ?? null) === 2) ? 'site/home2' : 'site/home';
+
+        $this->view($view, compact(
             'banners', 'setores', 'destaques', 'diferenciais',
             'gestao', 'pagina', 'config', 'seo'
         ));
