@@ -47,10 +47,13 @@
     </div>
 
     <div class="form-section form-section-open">
-        <div class="section-label"><h2>Imagem principal</h2></div>
+        <div class="section-label">
+            <h2>Imagem principal</h2>
+            <p>Foto de capa exibida nos cards e no topo da página da obra.</p>
+        </div>
         <label>Imagem
             <input type="file" name="imagem_principal" accept="image/jpeg,image/png,image/webp" data-preview-input>
-            <small class="field-help">JPG, PNG ou WebP. Prefira imagem horizontal.</small>
+            <small class="field-help">JPG, PNG ou WebP. Tamanho ideal: <strong>1280×720px</strong> (proporção 16:9). Máx. 8MB.</small>
         </label>
         <?php if (!empty($item['imagem_principal'])): ?>
             <img class="image-preview" data-preview src="<?= e(upload_url($item['imagem_principal'])) ?>" alt="Preview">
